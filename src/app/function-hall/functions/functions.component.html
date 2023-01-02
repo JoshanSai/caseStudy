@@ -1,0 +1,222 @@
+<body style="height:1000px">
+<div class="heading">
+    <h2>Funtion Halls of {{communityName}}</h2>
+    
+<!-- <input type="text" [matAutocomplete]="autoJ" placeholder="Community Name" class="gap">
+    <mat-autocomplete #autoJ="matAutocomplete" >
+      <mat-option *ngFor="let opt of dict2| keyvalue" [value]="opt.value" (click)="changeCommunity(opt.key,opt.value)">
+        {{opt.value}}
+      </mat-option>
+    </mat-autocomplete> -->
+    <!-- <mat-form-field *ngIf="topNavigate" style="margin-left: 80px;">
+        <mat-label>Change Community</mat-label>
+        <mat-select placeholder="{{communityName}}">
+          <mat-option *ngFor="let opt of dict2| keyvalue" (click)="changeCommunity(opt.key,opt.value)">{{opt.value}}</mat-option>
+        </mat-select>
+      </mat-form-field> -->
+</div>
+<!-- <table id="customers">
+    <tr>
+      <th class="column">Sl No.</th>
+     
+      <th class="column">Room Name</th>
+      <th class="column">Capacity</th>
+      <th class="column">Rent Per Day</th>
+       <th class="column">Community Id</th>  
+      <th class="column">Created By</th>
+      <th class="column">Created Date</th>
+    </tr>
+    <tr *ngFor="let i of x,index as j" >
+        <td class="data"><small>{{j+1}}</small></td>
+        <td class="data"><small>{{i.roomName}}</small></td>
+        <td class="data"><small>{{i.capacity}}</small></td>
+        <td  class="data"><small>{{i.rentPerDay}}</small></td>
+       
+         <td class="data"><small>{{i.communityId}}</small></td> 
+        <td class="data"><small>{{i.createdBy}}</small></td>
+        <td  class="data"><small>{{i.createdDate}}</small></td> 
+       
+    </tr>
+    </table> -->
+    <mat-card class="search">
+        <div class="search-container">
+            <mat-form-field >
+                <input matInput placeholder="search table data" (keyup)="filterData($event)" >
+            </mat-form-field>
+        </div>
+    </mat-card>
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevtion-z8 && table">
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Sl No.</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource;index as y">{{y+1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="roomName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Room Name</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource">{{dataSource.roomName}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="capacity">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Capacity</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource">{{dataSource.capacity}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="rentPerDay">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Rent</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource">{{dataSource.rentPerDay}}</mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="functionHallColumns"></mat-header-row>
+        <mat-row *matRowDef="let row;columns:functionHallColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator class="table" style="margin-top: 0px;" #paginator [pageSizeOptions]="[5, 10, 25, 100]"  aria-label="Select page" ></mat-paginator>
+
+<button (click)="bookRooms()" mat-raised-button class="btn">Book Rooms</button>
+<dialog id="myDialog" [open]="dialog" class="dialog">
+    <button class="close" (click)="closeDialog()">close</button>
+    <form style="margin-left: 20px;margin-top: 40px;" [formGroup] = "BookingForm" >
+        <mat-card-header>
+            <mat-card-title>Enter Booking Details</mat-card-title>
+          </mat-card-header>
+          <br>
+    <div style="display:flex;">
+        <!-- <div class="flatDetails">
+            <mat-form-field>
+                <input type="number" formControlName = "id"  placeholder="id" matInput/>
+            </mat-form-field>    
+        </div> -->
+        <!-- <div class="flatDetails">
+            <mat-form-field>
+                <input  type="number" formControlName = "flatId" placeholder="flat Id" matInput/>
+            </mat-form-field>
+        </div> -->
+        <!-- <div class="flatDetails">
+            <mat-form-field>
+            <input  type="text" formControlName = "type" placeholder="Type" matInput/>
+            </mat-form-field>
+        </div> -->
+        <div class="flatDetails">
+            <mat-form-field>
+                <input  type="text" [matAutocomplete]="auto2" formControlName = "roomName" placeholder="roomName" matInput/>
+                </mat-form-field>
+                <div *ngIf = "ROOMNAME.touched &&  ROOMNAME.invalid">
+                    <p><small style="color:rgb(217, 54, 54)"> enter valid room name </small></p>
+                </div>
+                <mat-autocomplete #auto2="matAutocomplete">
+                    <mat-option  *ngFor="let option of x" [value]="option.roomName">
+                      {{option.roomName}}
+                    </mat-option>
+            </mat-autocomplete>
+        </div>
+        <div class="flatDetails">
+            <mat-form-field>
+            <input  type="date" formControlName = "fromDate" placeholder="From Date" matInput/>
+            </mat-form-field>
+        </div>
+    </div>
+    <div style="display: flex;">
+        
+        <div class="flatDetails">
+            <mat-form-field>
+            <input  type="date" formControlName = "toDate" placeholder="To Date" matInput/>
+            </mat-form-field>
+        </div>
+        <div class="flatDetails">
+            <mat-form-field>
+            <input  type="text" formControlName = "comments" placeholder="Comments" matInput/>
+            </mat-form-field>
+        </div>
+    </div>
+        <!-- <div style="display: flex;">
+        <div class="flatDetails">
+            <mat-form-field>
+            <input  type="text" formControlName = "createdBy" placeholder="Created By" matInput/>
+            </mat-form-field>
+        </div>
+        <div class="flatDetails">
+            <mat-form-field>
+            <input  type="date" formControlName = "createdDate" placeholder="Created Date" matInput/>
+            </mat-form-field>
+        </div>
+        <div class="flatDetails">
+        <mat-form-field>
+            <input  type="text" formControlName = "updatedBy" placeholder="Updated By" matInput/>
+        </mat-form-field>
+        </div>
+        <div class="flatDetails">
+            <mat-form-field>
+                <input  type="date" formControlName = "updatedDate" placeholder="Updated Date" matInput/>
+            </mat-form-field>
+        </div> -->
+    <!-- </div> -->
+    <button [disabled]="!BookingForm.valid" mat-raised-button color="warn" (click)="confirmBooking()" >Confirm</button>
+    </form>
+</dialog>
+<button (click)="ShowBookingDetails()"  class="btn2" mat-raised-button >{{varr}}</button>
+<!-- <table id="customers" *ngIf="a" style="width: 85%;">
+    <tr>
+      <th class="column">Id</th>
+      <th class="column">Room Name</th>
+      <th class="column">From Date</th>
+      <th class="column">To Date</th>
+      <th class="column">Type</th>
+      <th class="column">Requested By</th>
+      <th class="column">Requested Date</th>
+      <th class="column">status</th>
+      
+    </tr>
+    <tr *ngFor="let i of y" >
+        <td class="data"><small>{{i.id}}</small></td>
+        <td class="data"><small>{{i.roomName}}</small></td>
+        <td  class="data"><small>{{i.fromDate}}</small></td>
+        <td class="data"><small>{{i.toDate}}</small></td>
+        <td  class="data"><small>{{i.type}}</small></td>
+        <td class="data"><small>{{i.createdBy}}</small></td>
+        <td  class="data"><small>{{i.createdDate}}</small></td>
+        <td class="data"><small>{{i.approvedByManager}}</small></td>
+        <td class="data" *ngIf="tenantRole!='tenant'"><small><button class="buttonA" mat-raised-button (click)="approve(i.id,'Approved')">Approve</button></small></td>
+        <td class="data" *ngIf="tenantRole!='tenant'"><small><button class="buttonR" mat-raised-button (click)="approve(i.id,'Rejected')">Reject</button></small></td>
+
+    </tr>
+    </table> -->
+    <mat-table [dataSource]="y" matSort class="mat-elevtion-z8 table2" *ngIf="a">
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Sl No.</mat-header-cell>
+            <mat-cell *matCellDef="let y;index as j">{{j+1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="roomName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Room Name</mat-header-cell>
+            <mat-cell *matCellDef="let y">{{y.roomName}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="fromDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>From-date</mat-header-cell>
+            <mat-cell *matCellDef="let y">{{y.fromDate}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="toDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>To-date</mat-header-cell>
+            <mat-cell *matCellDef="let y">{{y.toDate}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+            <mat-cell *matCellDef="let y">{{y.type}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="createdBy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Requested By</mat-header-cell>
+            <mat-cell *matCellDef="let y">{{y.createdBy}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="createdDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Requested date</mat-header-cell>
+            <mat-cell *matCellDef="let y">{{y.createdDate}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="approvedByManager">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+            <mat-cell *matCellDef="let y">{{y.approvedByManager}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="approve">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Approve</mat-header-cell>
+            <mat-cell *matCellDef="let y"><small><button [disabled]="!approveCondition" mat-raised-button color="primary" (click)="approve(y.id,'Approved')">Approve</button></small></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="reject">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Reject</mat-header-cell>
+            <mat-cell *matCellDef="let y"><small><button [disabled]="!approveCondition" mat-raised-button color="warn" (click)="approve(y.id,'Rejected')">Reject</button></small></mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="bookingColumns"></mat-header-row>
+        <mat-row *matRowDef="let row;columns:bookingColumns;"></mat-row>
+    </mat-table>
+</body>

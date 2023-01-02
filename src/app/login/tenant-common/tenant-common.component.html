@@ -1,0 +1,15 @@
+<div class="body">
+<p class="user">User : {{userName}}</p>
+<button class="gap" mat-flat-button  [style.color]="buttonColor1" (click)="navBarBtn(1)" routerLink="/tenantCommon">DASHBOARD</button>
+<button class="gap" mat-flat-button  [style.color]="buttonColor2" (click)="navBarBtn(2)"  routerLink="tenatCommunity/expenditures">Exepnditures</button>
+<button class="gap" mat-flat-button  [style.color]="buttonColor3" (click)="navBarBtn(3)"  routerLink="tenatCommunity/guestRooms">Guest Rooms</button>
+<button class="gap" mat-flat-button  [style.color]="buttonColor4" (click)="navBarBtn(4)"  routerLink="tenatCommunity/funtionHalls">Function Halls</button>
+<label *ngIf="topNavigate" class="lable">Change Community</label>
+<mat-form-field class="communitySelect" *ngIf="topNavigate" class="navigation">
+    <mat-select placeholder="{{comName}}">
+      <mat-option *ngFor="let opt of dict| keyvalue" (click)="changeCommunity(opt.key,opt.value)">{{opt.value}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+<button class="gap" mat-flat-button color=""(click)="logout()" >Logout</button>
+</div>
+<router-outlet></router-outlet>

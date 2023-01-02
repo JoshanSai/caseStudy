@@ -1,0 +1,22 @@
+.body{
+    text-align: center;
+    background: url('file:\\\C:\Users\JoshanDasi\Downloads\cm2new.jpg') no-repeat center center fixed;
+    background-size:cover;
+}
+.heading{
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+color:whitesmoke;
+line-height: 120px;
+font-size: 250%;
+text-align: center;
+word-spacing: 10px;
+background-color: rgb(23, 22, 22);
+
+}
+.card{
+    margin-left: 38%;
+    margin-top: 80px;
+    width: 20%;
+    height: 40%;
+    background-color: rgba(30, 29, 29, 0.438);
+}

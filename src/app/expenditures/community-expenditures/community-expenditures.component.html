@@ -1,0 +1,183 @@
+<body>
+<div class="heading2" >
+    <h2>Expenditures of {{communityName}} in {{monthName}} </h2>
+    <!-- <input type="text" [matAutocomplete]="autoJ" placeholder="Community Name" class="gap">
+    <mat-autocomplete #autoJ="matAutocomplete" >
+      <mat-option *ngFor="let opt of dict2| keyvalue" [value]="opt.value" (click)="changeCommunity(opt.key,opt.value)">
+        {{opt.value}}
+      </mat-option>
+    </mat-autocomplete> -->
+   
+</div>
+<div class="search-container">
+    <mat-card class="searchcard" >
+    <mat-form-field style="width: 130px;">
+        <input matInput placeholder="search table data" (keyup)="filterData($event)" >
+    </mat-form-field>
+    </mat-card>
+<!-- <mat-form-field *ngIf="topNavigate" style="margin-left: 40px;">
+    <mat-label >Change Community</mat-label>
+    <mat-select placeholder="{{communityName}}">
+      <mat-option *ngFor="let opt of dict2| keyvalue" (click)="changeCommunity(opt.key,opt.value)">{{opt.value}}</mat-option>
+    </mat-select>
+  </mat-form-field> -->
+<mat-card class="card">
+    <mat-form-field style="margin-left: 40px;" class="matForm">
+        <mat-label >Enter year </mat-label>
+        <input type="number" matInput [(ngModel)]="currYear">
+      </mat-form-field>
+<mat-form-field style="margin-left: 40px;" class="matForm">
+    <mat-label >Select Month</mat-label>
+    <mat-select  name="expenses" [(ngModel)]="month" id="expenses">
+      <mat-option value="1" class="opt" >JAN</mat-option>
+      <mat-option value="2" class="opt" >FEB</mat-option>
+      <mat-option value="3" class="opt" >MAR</mat-option>
+      <mat-option value="4" class="opt" >APR</mat-option>
+      <mat-option value="5" class="opt" >MAY</mat-option>
+      <mat-option value="6" class="opt" >JUN</mat-option>
+      <mat-option value="7" class="opt" >JUL</mat-option>
+      <mat-option value="8" class="opt" >AUG</mat-option>
+      <mat-option value="9" class="opt" >SEP</mat-option>
+      <mat-option value="10" class="opt" >OCT</mat-option>
+      <mat-option value="11" class="opt" >NOV</mat-option>
+      <mat-option value="12" class="opt" >DEC</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" style="margin-left: 30px;" (click)="getExpensesByMonth()">View</button>
+</mat-card>
+<mat-card class="dateCard"> 
+    <div>
+    <label>From Date</label>
+    <input type="date" matInput [(ngModel)]="fromDate">
+    </div>
+    <div>
+    <label>To Date</label>
+    <input type="date" matInput [(ngModel)]="toDate">
+    </div>
+    <button mat-raised-button color="primary" style="height: 35px;margin-top: 10px;" (click)="getExpensesByRange()">View</button>
+</mat-card>
+</div>
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevtion-z8 && table">
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Sl No.</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource;index as y">{{y+1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Amount</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource">{{dataSource.amount}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="comments">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Comments</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource">{{dataSource.comments}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="createdBy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Created By</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource">{{dataSource.createdBy}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="flatId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Flat Number</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource">{{dict3[dataSource.flatId]}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="transactionDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Date</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource">{{dataSource.transactionDate}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource">{{dataSource.type}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="btn">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Update</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource"><small><button [disabled]="!update_condition" (click)="UpdateExpenditures(dataSource.id,dataSource.amount,dataSource.transactionDate,dict3[dataSource.flatId],dataSource.type,dataSource.flatId,dataSource.comments)" class="update">Update</button></small></mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="ExpensesColumns"></mat-header-row>
+        <mat-row *matRowDef="let row;columns:ExpensesColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]"  aria-label="Select page" class="paginator"></mat-paginator>
+    <button *ngIf="tenantRole=='communityManager'" mat-raised-button style="background-color: gold;color:white;margin-left: 30px;margin-top: 5px;" (click)="appearDropDown()">Add Expense</button>
+    <dialog id="myDialog" [open]="dialogs" class="dialog">
+        <button (click)="cancelTransaction()" class="close" ><small><b>close</b></small></button>
+    <form style="margin-left: 20px;margin-top: 40px;" [formGroup] = "ExpensesForm" >
+        <mat-card-header>
+            <mat-card-title>Enter Expenditure Details</mat-card-title>
+          </mat-card-header>
+          <br>
+    <div style="display:flex;">
+        <div class="flatDetails" *ngIf="select!='Common Area'">
+            <!-- <mat-form-field>
+            <input  type="text"  [matAutocomplete]="auto" formControlName = "flatId" placeholder="Flat number" matInput  />
+           <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option  *ngFor="let option of dict" [value]="option" >
+              {{option.flatNumber}}
+            </mat-option>
+            </mat-autocomplete>
+        </mat-form-field> -->
+        <mat-form-field>
+            <mat-label>Select flat</mat-label>
+            <mat-select formControlName = "flatId" name="food">
+              <mat-option *ngFor="let food of dict|keyvalue" [value]="food.value">
+                {{food.key}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="flatDetails">
+            <mat-form-field>
+                <mat-label>Select flat</mat-label>
+                <mat-select formControlName = "type">
+                  <mat-option value="credit">credit</mat-option>
+                  <mat-option value="debit">debit</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div style="display: flex;">
+        <div class="flatDetails">
+            <mat-form-field>
+            <input  type="number" formControlName = "amount" placeholder="Amount" matInput/>
+            </mat-form-field>
+        </div>
+        <div class="flatDetails">
+            <mat-form-field>
+            <input  type="date" formControlName = "transactionDate" placeholder="Transaction Date" matInput/>
+            </mat-form-field>
+        </div>
+        <!-- <div class="flatDetails">
+            <mat-form-field>
+            <input  type="text" formControlName = "references" placeholder="references" matInput/>
+            </mat-form-field>
+        </div> -->
+        <div class="flatDetails">
+            <mat-form-field>
+            <input  type="text" formControlName = "comments" placeholder="Comments" matInput/>
+            </mat-form-field>
+        </div>
+    </div>
+        <div style="display: flex;">
+        <!-- <div class="flatDetails">
+            <mat-form-field>
+            <input  type="text" formControlName = "createdBy" placeholder="Created By" matInput/>
+            </mat-form-field>
+        </div> -->
+        <!-- <div class="flatDetails">
+            <mat-form-field>
+            <input  type="text" formControlName = "createdDate" placeholder="Created Date" matInput/>
+            </mat-form-field>
+        </div> -->
+        <!-- <div class="flatDetails">
+        <mat-form-field>
+            <input  type="text" formControlName = "updatedBy" placeholder="Updated By" matInput/>
+        </mat-form-field>
+        </div>
+        <div class="flatDetails">
+            <mat-form-field>
+                <input  type="date" formControlName = "updatedDate" placeholder="Updated Date" matInput/>
+            </mat-form-field>
+        </div> -->
+    </div>
+    <button type="submit" *ngIf="updateCondition" [disabled]="ExpensesForm.invalid"  mat-raised-button  (click)="AddExpenditures()" >Add</button>
+    <button *ngIf="updateCondition1" mat-raised-button (click)="update()">Confirm</button>
+    </form>
+</dialog>
+</body>
+     

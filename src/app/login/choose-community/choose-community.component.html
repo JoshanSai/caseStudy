@@ -1,0 +1,53 @@
+<body>
+<div style="display: flex;" class="heading">
+<h2 class="subheading">Select a Community</h2>
+<button (click)="logout()" mat-raised-button class="logout">Logout</button>
+</div>
+<div style="padding:60px">
+<!-- <table id="customers">
+    <tr>
+      <th class="column">Communit Name</th>
+      <th class="column">Community Location</th>
+      <th class="column">Created By</th>
+      <th class="column">Details</th>
+    </tr>
+    <tr *ngFor="let i of z" >
+        <td class="data">{{i[0].communityName}}</td>
+        <td  class="data">{{i[0].communityAddress}}</td>
+        <td class="data">{{i[0].createdBy}}</td>
+        <td ><button mat-icon-button (click)="getId(i[0].id)">More</button></td>
+    </tr>
+    </table>
+</div> -->
+<div class="search-container">
+  <mat-form-field >
+      <input matInput placeholder="search" (keyup)="filterData($event)" style="color: black;">
+  </mat-form-field>
+</div>
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 && table">
+<ng-container matColumnDef="id">
+  <mat-header-cell  *matHeaderCellDef mat-sort-header >No.</mat-header-cell>
+  <mat-cell *matCellDef="let dataSource;index as y">{{y+1}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="communityName">
+  <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+  <mat-cell *matCellDef="let dataSource">{{dataSource[0].communityName}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="communityAddress">
+  <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
+  <mat-cell *matCellDef="let dataSource">{{dataSource[0].communityAddress}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="registeredDate">
+  <mat-header-cell *matHeaderCellDef mat-sort-header>Registration Date</mat-header-cell>
+  <mat-cell *matCellDef="let dataSource">{{dataSource[0].registeredDate}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="navigate">
+  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+  <mat-cell *matCellDef="let dataSource"><button mat-icon-button (click)="getId(dataSource[0].id)">More</button></mat-cell>
+</ng-container>
+<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator #paginator class="table"  [pageSizeOptions]="[5, 10, 25, 100]"  aria-label="Select page" ></mat-paginator>
+</div>
+</body>

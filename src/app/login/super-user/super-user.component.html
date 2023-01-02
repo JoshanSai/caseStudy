@@ -1,0 +1,32 @@
+
+<body class="body">
+  <h1 class="heading">Super Admin Login</h1>
+  <p>_________________________________________________________________________________________________</p>
+  <mat-card class="card">
+  <form class="form" [formGroup] = "userForm">
+    <div>
+      <div *ngIf="c1">
+        <p style="color:gold ;"><i>Invalid Credentials</i></p>
+    </div>
+    <mat-form-field>
+    <input type="text" formControlName = "Sname" matInput placeholder="name" />
+    </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+      <input type="password" formControlName = "Spass" matInput placeholder="password" />
+      </mat-form-field>
+    </div>
+    <br>
+      <button (click)="getData(superuse)" mat-raised-button style="background-color: rgb(21, 20, 20);color:white">Submit</button>
+      <!-- <div *ngIf="c">
+        <button routerLink={{route}} mat-raised-button style="margin-top: 5px;" color="warn">Next</button>
+      </div> -->
+      <br>
+      <button routerLink="" mat-raised-button style="background-color: rgb(21, 20, 20);color:white;
+      margin-top:10px">Back</button>
+</form>
+</mat-card>
+</body>
+        
+  

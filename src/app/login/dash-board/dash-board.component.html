@@ -1,0 +1,60 @@
+<body>
+<div class="dashBoard">
+    <h2 class="heading">DASHBOARD for {{comName}}</h2>
+   
+    <!-- <button class="gap" mat-raised-button color="" routerLink="/guestroom">Guest Rooms</button>
+    <button class="gap" mat-raised-button color="" routerLink="/functions">Function Halls</button> -->
+   
+    <!-- <input type="text" [matAutocomplete]="auto" placeholder="Community Name" class="gap">
+    <mat-autocomplete #auto="matAutocomplete" >
+      <mat-option *ngFor="let opt of dict| keyvalue" [value]="opt.value" (click)="changeCommunity(opt.key,opt.value)">
+        {{opt.value}}
+      </mat-option>
+    </mat-autocomplete> -->
+      <!-- <mat-form-field class="communitySelect" *ngIf="topNavigate">
+        <mat-label >Change Community</mat-label>
+        <mat-select placeholder="{{comName}}">
+          <mat-option *ngFor="let opt of dict| keyvalue" (click)="changeCommunity(opt.key,opt.value)">{{opt.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>-->
+</div>
+
+ 
+  
+ 
+  <h3 style="text-align:center;margin-top: 20px;">All expenses of {{monthName}} month for community {{dict[communityId]}}</h3>
+  <p style="margin-left: 30px;">Total Expense : {{totalExpense | currency:'INR':'symbol'}}</p>
+  
+    <div class="pieChart" style="width: 600px;height: 400px;display: flex;">
+      
+        <canvas id="pieChart" ></canvas>
+    
+          <mat-card class="choose">
+        <mat-form-field class="form">
+          <mat-label >Enter year </mat-label>
+          <input type="number" matInput [(ngModel)]="currYear" >
+        </mat-form-field> 
+        <mat-form-field class="form">
+          <mat-label >Select Month</mat-label>
+          <mat-select class="select"  name="expenses" [(ngModel)]="month" id="expenses">
+            <mat-option value="1" class="opt" >JAN</mat-option>
+            <mat-option value="2" class="opt" >FEB</mat-option>
+            <mat-option value="3" class="opt" >MAR</mat-option>
+            <mat-option value="4" class="opt" >APR</mat-option>
+            <mat-option value="5" class="opt" >MAY</mat-option>
+            <mat-option value="6" class="opt" >JUN</mat-option>
+            <mat-option value="7" class="opt" >JUL</mat-option>
+            <mat-option value="8" class="opt" >AUG</mat-option>
+            <mat-option value="9" class="opt" >SEP</mat-option>
+            <mat-option value="10" class="opt" >OCT</mat-option>
+            <mat-option value="11" class="opt" >NOV</mat-option>
+            <mat-option value="12" class="opt" >DEC</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button (click)="getExpensesByMonth()" mat-raised-button style="background-color:rgb(54, 162, 235);color: white;">Show Graph</button>
+      </mat-card>
+      </div>
+
+    
+    
+</body>

@@ -1,0 +1,193 @@
+
+<body class="body">
+   
+        <!-- <mat-tab label="Flats" >
+    adding flats pop up dialog starts from here
+    <dialog id="myDialog" [open]="a1" class="dialog1">
+        <button class="close" (click)="closeFlatForm()"><small>close</small></button>
+        <form style="margin-left: 20px;margin-top: 40px;" [formGroup] = "flatForm" >
+            <mat-card-header>
+                <mat-card-title>Enter Flat Details</mat-card-title>
+            </mat-card-header>
+              <br>
+        <div style="display:flex;"> -->
+            <!-- <div class="flatDetails">
+                <mat-form-field>
+                    <input type="number" formControlName = "id"  placeholder="flatId" matInput/>
+                </mat-form-field>
+            
+            </div> -->
+            <!-- <div class="flatDetails">
+                <mat-form-field>
+                    <input  type="number" formControlName = "Sqft" placeholder="Area Sqft" matInput/>
+                </mat-form-field>
+            </div> -->
+           <!-- <div class="flatDetails">
+                <mat-form-field>
+                <input  type="number" formControlName = "communityId" placeholder="Community Id" matInput/>
+                </mat-form-field>
+            </div> -->
+            <!-- <div class="flatDetails">
+                <mat-form-field>
+                <input  type="text" formControlName = "flatNumber" placeholder="Flat Number" matInput/>
+                </mat-form-field>
+            </div>
+        </div>
+        <div style="display: flex;">
+            <div class="flatDetails">
+                <mat-form-field>
+                <input  type="number" formControlName = "numberOfRooms" placeholder="no. of rooms" matInput/>
+                </mat-form-field>
+            </div> -->
+            <!-- <div class="flatDetails">
+                <mat-form-field>
+                <input  type="date" formControlName = "updatedDate" placeholder="updated Date" matInput/>
+                </mat-form-field>
+            </div> -->
+            <!-- <div class="flatDetails">
+                <mat-form-field>
+                <input  type="text" formControlName = "createdBy" placeholder="created By" matInput/>
+                </mat-form-field>
+            </div> -->
+            <!-- <div class="flatDetails">
+                <mat-form-field>
+                <input  type="date" formControlName = "createdDate" placeholder="created Date" matInput/>
+                </mat-form-field>
+            </div> -->
+        <!-- </div>
+        <button  (click)="addFlat()" color="link" mat-raised-button [disabled]="!flatForm.valid" *ngIf="addUpdate">Add</button>
+        <button color="link" mat-raised-button   [disabled]="!flatForm.valid" *ngIf="!addUpdate" (click)="updateFlatAfterClicked()">update</button>
+    
+        </form>
+        </dialog> -->
+    <!-- mat tab;le of flats starts from here -->
+    <!-- <div class="flats">
+        <h2 class="subheading">Flats</h2>
+        <div class="search-container">
+            <mat-form-field >
+                <input matInput placeholder="search" (keyup)="filterData($event)" style="color: white;">
+            </mat-form-field>
+        </div>
+    <mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="no">
+            <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource1;index as y">{{y+1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="flatNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Flat Number</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource1">{{dataSource1.flatNumber}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="numberOfRooms">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>No. of rooms</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource1">{{dataSource1.numberOfRooms}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Sqft">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Sqft</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource1">{{dataSource1.Sqft}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="update">
+            <mat-header-cell *matHeaderCellDef>Update</mat-header-cell>
+            <mat-cell  *matCellDef="let dataSource1"><button class="update" mat-raised-button (click)="updateFlat(dataSource1.id,dataSource1.flatNumber,dataSource1.numberOfRooms,dataSource1.Sqft)">Update</button></mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator  #paginator [pageSizeOptions]="[5, 10, 25, 100]"  aria-label="Select page" ></mat-paginator>
+    </div>
+    <button mat-raised-button color="warn" (click)="showData1()" style="margin-left: 120px;margin-top: 10px;">Add Flats</button>
+     -->
+    <dialog id="myDialog" [open]="a2" class="dialog2">
+        <button class="close2" (click)="closeTenantFrom()">close</button>
+        <form style="margin-left: 20px;margin-top: 40px;" [formGroup] = "tenantsForm" >
+            <mat-card-header>
+                <mat-card-title>Enter Tenant Details</mat-card-title>
+              </mat-card-header>
+              <br>
+        <div style="display:flex;">
+            <div class="flatDetails">
+                <mat-form-field >
+                    <mat-label>select flat number</mat-label>
+                    <mat-select formControlName="flatId">
+                      <mat-option [value]="opt.id" *ngFor="let opt of x">
+                        <p>{{opt.flatNumber}}</p >
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="flatDetails">
+                <mat-form-field>
+                <input  type="text" formControlName = "personName" placeholder="name" matInput/>
+                </mat-form-field>
+            </div>
+        </div>
+        <div style="display: flex;">
+            <div class="flatDetails">
+                <mat-form-field>
+                <input  type="text" formControlName = "email" placeholder="email" matInput/>
+                </mat-form-field>
+            </div>
+            <div class="flatDetails">
+                <mat-form-field>
+                <input  type="password" formControlName = "password" placeholder="password" matInput/>
+                </mat-form-field>
+            </div>
+        </div>
+        <div style="display: flex;">
+            <div class="flatDetails">
+                <mat-form-field>
+                <input  type="date" formControlName = "adminEndDate" placeholder="admin end date" matInput/>
+                </mat-form-field>
+            </div>
+            <div class="flatDetails">
+                <mat-form-field>
+                <input  type="number" formControlName = "phoneNumber" placeholder="phone Number" matInput/>
+                </mat-form-field>
+            </div>
+        </div>
+        <div style="display: flex;">
+            <div class="flatDetails">
+                <mat-form-field>
+                <input  type="date" formControlName = "adminStartDate" placeholder="admin start date" matInput/>
+                </mat-form-field>
+            </div>
+        </div>
+        
+        <button mat-raised-button  [disabled]="!tenantsForm.valid" (click)="addTenants()" *ngIf="addUpdate2" style="margin-left: 12px;">Add tenant</button>
+        <button mat-raised-button  (click)="updateTenantAfterClicked()" *ngIf="addUpdate3" style="margin-left: 12px;">update tenant</button>
+        </form>
+        </dialog>
+    <br>
+    <br>
+    <!-- mat table for displaying tenants starts form here -->
+    <div class="tenants">
+        <div class="search-container">
+            <mat-form-field >
+                <input matInput placeholder="search" (keyup)="filterData2($event)" style="color: white;">
+            </mat-form-field>
+        </div>
+    <mat-table [dataSource]="dataSource2" matSort #tenantSort="matSort"  class="mat-elevation-z8">
+        <ng-container matColumnDef="no">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>No.</mat-header-cell>
+             <mat-cell *matCellDef="let dataSource2;index as y">{{y+1}}</mat-cell> 
+        </ng-container>
+        <ng-container matColumnDef="flatId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Flat Number</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource2">{{dict2[dataSource2.flatId]}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="personName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Tenant Name</mat-header-cell>
+            <mat-cell *matCellDef="let dataSource2">{{dataSource2.personName}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="update">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Update</mat-header-cell>
+            <mat-cell  *matCellDef="let dataSource2"><button mat-raised-button color="primary" (click)="updateTenant(dataSource2.id,dataSource2.flatId,dataSource2.phoneNumber,dataSource2.email,dataSource2.password,dataSource2.memberSince,dataSource2.adminStartDate,dataSource2.adminEndDate,dataSource2.personName)">Update</button></mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="tenantColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: tenantColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginatorTenant  [pageSizeOptions]="[5, 10, 25, 100]"  aria-label="Select page" ></mat-paginator>
+    </div>
+    <!-- 
+    /////////////////////////////////////////////////////////////////////// -->
+    <button mat-raised-button class="update" (click)="showData2()" style="margin-left: 120px;margin-top: 10px;">Add Tenants</button>
+    </body>

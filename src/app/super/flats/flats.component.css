@@ -1,0 +1,85 @@
+.flatDetails{
+    margin-left: 20px;
+}
+.flats{
+    margin-top: 10px;
+    width: 50%;
+    padding-left: 120px;
+}
+.tenants{
+    width: 50%;
+    padding-left: 120px;
+}
+.dialog1{
+    background-color: rgb(196, 226, 233);
+    color:rgb(35, 91, 132);
+    border-radius: 30px;
+    margin-top: 60px;
+    border-width: 5px;
+    border-color: rgb(46, 126, 196);
+    margin-left: 760px;
+  }
+  
+.heading{
+    background-color: rgb(253, 124, 77);
+    display: flex;
+    
+  }
+  .text{
+    line-height: 50px;
+    padding-left: 20px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: whitesmoke;
+    letter-spacing: 1px;
+  }
+  .btn{
+    height: 30px;
+    margin-left: 30px;
+    margin-top: 13px;
+  }
+
+.body{
+    background-color:  white;
+    height: 1000px;
+}
+.add{
+  background-color: rgb(78, 206, 78);
+  border: transparent;
+  color: white;
+  border-radius: 3px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.close{
+  background-color: rgb(206, 80, 78);
+  border: transparent;
+  color: white;
+  border-radius: 2px;
+  margin-left: 400px;
+}
+.close2{
+  background-color: rgb(206, 80, 78);
+  border: transparent;
+  color: white;
+  border-radius: 2px;
+  margin-left: 400px;
+}
+
+.back{
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 65%;
+}
+.logout{
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 1%;
+
+}
+
+.update{
+  background-color:  rgb(84, 180, 239);
+  color: white;
+}

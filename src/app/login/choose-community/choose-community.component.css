@@ -1,0 +1,21 @@
+
+.heading{
+height: 60px;
+color: #094e7f;
+padding-left: 20px;
+background-color: #7dbeda;
+}
+.logout{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 77%;
+}
+.subheading{
+  padding-top: 10px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body{ 
+}
+.table{
+  width: 60%;
+}

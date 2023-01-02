@@ -1,0 +1,72 @@
+.heading{
+  display: flex;
+    padding-left: 20px;
+    padding-top: 20px;
+    background-color:  rgb(38, 37, 37);;
+    color: rgb(231, 229, 229);
+}
+  .flatDetails{
+    margin-left: 40px;
+  }
+  .dialog{
+    background-color: rgb(206, 234, 244);
+    color: #0c598f;
+    border-radius: 30px;
+    margin-top: 10px;
+    border-width: 5px;
+    border-color: #0f6bad;
+  }
+  .buttonA{
+    color: white;
+    background-color: #0ecb60;
+  }
+  .buttonR{
+    color: white;
+    background-color: red;
+  }
+  .close{
+    background-color: orangered;
+    border-color: transparent;
+    border-radius: 5px;
+    color: whitesmoke;
+    margin-left: 500px;
+  }
+ 
+  .confirm{
+    height:30px;
+    width:80px;
+    border-radius: 5px;
+    border-color: transparent;
+    color: white;
+    background-color: coral;
+  }
+  .table{
+    margin-top: 10px;
+    margin-left: 30px;
+    width: 50%;
+  }
+  .table2{
+    margin-top: 30px;
+    margin-left: 30px;
+    width: 90%;
+  }
+  body{
+    background-color:#70b3e2;
+  }
+ .btn{
+margin-left: 30px;
+background-color: black;
+color: white;
+  }
+  .btn2{
+    margin-left: 10px;
+    background-color: black;
+    color: white;
+      }
+
+.search{
+margin-left: 30px;
+margin-top: 20px;
+width: 180px;
+height: 40px;
+}

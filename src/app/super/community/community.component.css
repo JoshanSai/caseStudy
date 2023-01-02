@@ -1,0 +1,46 @@
+.community{
+    width: 68%;
+    padding-left: 90px;
+    padding-top: 20px;
+}
+.heading{
+    padding-top: 20px;
+    padding-left: 20px;
+    color: whitesmoke;
+    letter-spacing: 1px;
+    background-color: rgb(51, 201, 250);
+  }
+.body{
+    background-color:whitesmoke;
+    height:800px;
+}
+.subheading{
+    font-family: cursive;
+    color:  rgb(35, 134, 167);
+}
+.logout{
+    margin-left: 75%;
+    margin-bottom: 20px;
+}
+.subHeading{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.dialog2{
+    background-color: rgb(184, 219, 225);
+    color:rgb(39, 71, 140);
+    border-radius: 30px;
+    margin-top: 40px;
+    border-width: 5px;
+    border-color:rgb(39, 154, 193);
+    margin-left: 260px;
+    width: 640px;
+  }
+  .flatDetails{
+    margin-left: 20px;
+}
+.add{
+    margin-top: 10px;
+    margin-left: 90px;
+    background-color:rgb(39, 154, 193) ;
+    color: white;
+}

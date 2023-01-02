@@ -1,0 +1,40 @@
+.flatDetails{
+    margin-left: 20px;
+}
+.flats{
+    padding-top: 10px;
+    width: 80%;
+    padding-left: 120px;
+}
+.dialog{
+    background-color: rgb(49, 49, 49);
+    color:whitesmoke;
+    border-radius: 30px;
+    padding-top: 10px;
+    border-width: 5px;
+    border-color: rgb(74, 188, 42);
+    margin-left: 280px;
+  }
+.heading{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    line-height: 65px;
+    background-color:rgb(88, 214, 88);
+    padding-left: 20px;
+    color: rgb(240, 238, 238);  
+} 
+.btn{
+    background-color:rgb(53, 199, 53);
+    margin-top: 10px;
+    margin-left: 120px;
+    color: whitesmoke;
+
+}
+.btn2{
+    background-color:rgb(53, 199, 53);
+    margin-top: 10px;
+    color: whitesmoke;
+}
+.body{
+    background-color: rgb(26, 25, 25);
+    height: 1000px;
+}

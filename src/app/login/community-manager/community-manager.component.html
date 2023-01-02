@@ -1,0 +1,35 @@
+<body class="body">
+    <h1 class="heading">Manager / Tennat Login</h1>
+    <mat-card class="card">
+    <form class="form" [formGroup] = "userForm">
+      <div>
+        <div *ngIf="c3">
+          <p><i>Invalid Credentials</i></p>
+         </div>
+      <mat-form-field>
+      <input type="text" formControlName = "Cname" matInput placeholder="name" />
+      </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+        <input type="password" formControlName = "Cpass" matInput placeholder="password" />
+        </mat-form-field>
+      </div>
+        <button (click)="getData(obj)" mat-raised-button color="primary">Submit</button>
+        <br>
+        <button style="margin-top: 10px;" routerLink="" mat-raised-button color="primary">Back</button>
+        <br>
+        <!-- <div *ngIf="c && c1<=1">
+            <button routerLink="/dashBoard" mat-raised-button style="margin-top: 5px;"  color="primary">next</button>
+        </div>
+        <div *ngIf="c && c1!>1">
+          <button routerLink="/chooseCommunity" mat-raised-button style="margin-top: 5px;"  color="primary">next</button>
+      </div>
+        <br> -->
+  </form> 
+</mat-card>
+  </body>
+  
+          
+    
+  

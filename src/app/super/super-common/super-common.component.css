@@ -1,0 +1,26 @@
+.body{
+    display: flex;
+    background-color:lightblue;
+    height: 65px;
+}
+.logout{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 2%;
+    color: black;
+    background-color: lightblue
+}
+.heading{
+    margin-top: 8px;
+    margin-left: 10PX;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: capitalize;
+    color:  rgb(29, 86, 105);
+}
+.Community{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 65%;
+    color: black;
+    background-color: lightblue
+}

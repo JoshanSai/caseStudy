@@ -1,0 +1,52 @@
+.body{
+    text-align: left;
+    background: url('file:\\\C:\Users\JoshanDasi\Downloads\cm1new.jpg') no-repeat center center fixed;
+    background-size:cover;
+    
+     background-color: rgb(31, 30, 30);
+}
+.heading{
+line-height: 140px;
+padding-left: 20px;
+padding-bottom: 8px;
+color: rgb(10, 9, 9);
+font-size: 200%;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background-color:aliceblue;
+}
+.card{
+    text-align: center;
+    background-color:white;
+    width: 0%;
+    height: 0%;
+    padding-top: 1%;
+    margin-left: 36%;
+    margin-top: 8%;
+    border-radius: 50px;
+    opacity: 0;
+    animation-name: appear;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+@keyframes appear{
+    from{
+        opacity: 0;
+        width: 0%;
+        height: 0%;
+        background-color: deepskyblue;
+    }
+    to{
+        width: 25%;
+        opacity: 1;
+        height: 5%;
+        background-color: aliceblue;
+    }
+}
+.btn{
+    margin-left: 10px;
+    margin-right: 10px;
+    opacity: 0;
+    animation-name: appear;
+    animation-duration: 1s;
+    animation-fill-mode: forwards; 
+}

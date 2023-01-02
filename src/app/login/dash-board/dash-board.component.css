@@ -1,0 +1,68 @@
+.dashBoard{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color:rgb(36, 35, 35);
+}
+.gap{
+    margin-left: 30PX;
+    background-color:rgb(36, 35, 35);
+    color: cyan;
+}
+.heading{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0px;
+    color:rgb(243, 240, 240);
+    margin-left: 30px;
+    text-transform:uppercase;
+}
+.pieChart{
+   margin-left: 30px;
+   margin-top: 20px;
+}
+.label{
+    padding-left: 40px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.select{
+    border-radius: 6px;
+    border-color: lightblue;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.btn{
+    margin-left: 30px;
+    background-color: lightblue;
+}
+.opt{
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.communitySelect{
+margin-left: 50px;
+font-style: initial;
+}
+.back{
+    margin-left: 350px;
+}
+.logout{
+    margin-left: 10px;
+}
+
+.subBody{
+    padding-top: 20px;
+    display: flex;
+    background-color: rgb(36, 35, 35);
+}
+
+body{
+    background-color:ghostwhite;
+    height: 1000px;
+}
+.choose{
+    margin-top: 20px;
+    margin-left: 40px;
+    height: 150px;
+    
+}
+.form{
+    width: 80px;
+}
