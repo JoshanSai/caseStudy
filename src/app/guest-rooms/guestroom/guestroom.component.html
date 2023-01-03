@@ -98,7 +98,6 @@
         <div class="flatDetails">
             <mat-form-field>
             <input  type="text"  [matAutocomplete]="auto2" formControlName = "roomName" placeholder="roomName" matInput/>
-            
             <div *ngIf = "ROOMNAME.touched &&  ROOMNAME.invalid">
                 <p><small style="color:rgb(217, 54, 54)"> enter valid room name </small></p>
               </div>

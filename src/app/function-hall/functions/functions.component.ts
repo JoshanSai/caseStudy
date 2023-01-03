@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { CaseDataService } from 'src/app/case-data.service';
 
 @Component({
@@ -14,7 +15,8 @@ import { CaseDataService } from 'src/app/case-data.service';
   styleUrls: ['./functions.component.css']
 })
 export class FunctionsComponent implements OnInit {
-
+filteredOptions!:Observable<string[]>
+x5:any //used for filtering functionhall names
 type="Function Hall"
 tenantRole=""
 tenantFlatId:any
@@ -104,6 +106,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
         this.dataSource.paginator=this.paginator
         this.dataSource.sort=this.matSort
      this.x=data;
+     this.x5=data
      this.x.forEach((val:any) => {
       this.funtionHAllNumbers.push(val.roomName)
      });
@@ -330,6 +333,14 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
         
        }))
     }
+    this.BookingForm.get('roomName')?.valueChanges.subscribe((res)=>{
+      this.filterData2(res);
+    })
+  }
+  filterData2(res:any){
+    this.x = this.x5.filter((item:any)=>{
+      return item.roomName.toLowerCase().indexOf(res)>-1
+    })
   }
 
 }

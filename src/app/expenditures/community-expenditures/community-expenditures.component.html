@@ -43,7 +43,7 @@
       <mat-option value="12" class="opt" >DEC</mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-raised-button color="primary" style="margin-left: 30px;" (click)="getExpensesByMonth()">View</button>
+  <button mat-raised-button class="blackBtn" style="margin-left: 30px;" (click)="getExpensesByMonth()">View</button>
 </mat-card>
 <mat-card class="dateCard"> 
     <div>
@@ -54,7 +54,7 @@
     <label>To Date</label>
     <input type="date" matInput [(ngModel)]="toDate">
     </div>
-    <button mat-raised-button color="primary" style="height: 35px;margin-top: 10px;" (click)="getExpensesByRange()">View</button>
+    <button mat-raised-button class="blackBtn" style="height: 35px;margin-top: 10px;" (click)="getExpensesByRange()">View</button>
 </mat-card>
 </div>
     <mat-table [dataSource]="dataSource" matSort class="mat-elevtion-z8 && table">
@@ -88,13 +88,13 @@
         </ng-container>
         <ng-container matColumnDef="btn">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Update</mat-header-cell>
-            <mat-cell *matCellDef="let dataSource"><small><button [disabled]="!update_condition" (click)="UpdateExpenditures(dataSource.id,dataSource.amount,dataSource.transactionDate,dict3[dataSource.flatId],dataSource.type,dataSource.flatId,dataSource.comments)" class="update">Update</button></small></mat-cell>
+            <mat-cell *matCellDef="let dataSource"><small><button [disabled]="!update_condition" (click)="UpdateExpenditures(dataSource.id,dataSource.amount,dataSource.transactionDate,dict3[dataSource.flatId],dataSource.type,dataSource.flatId,dataSource.comments)" mat-raised-button class="blackBtn">Update</button></small></mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="ExpensesColumns"></mat-header-row>
         <mat-row *matRowDef="let row;columns:ExpensesColumns;"></mat-row>
     </mat-table>
     <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]"  aria-label="Select page" class="paginator"></mat-paginator>
-    <button *ngIf="tenantRole=='communityManager'" mat-raised-button style="background-color: gold;color:white;margin-left: 30px;margin-top: 5px;" (click)="appearDropDown()">Add Expense</button>
+    <button *ngIf="tenantRole=='communityManager'" mat-raised-button class="blackBtn" style="margin-left: 30px;margin-top: 5px;" (click)="appearDropDown()">Add Expense</button>
     <dialog id="myDialog" [open]="dialogs" class="dialog">
         <button (click)="cancelTransaction()" class="close" ><small><b>close</b></small></button>
     <form style="margin-left: 20px;margin-top: 40px;" [formGroup] = "ExpensesForm" >

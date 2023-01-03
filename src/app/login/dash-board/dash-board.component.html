@@ -22,7 +22,7 @@
  
   
  
-  <h3 style="text-align:center;margin-top: 20px;">All expenses of {{monthName}} month for community {{dict[communityId]}}</h3>
+  <h3 style="text-align:center;margin-top: 20px;">All expenses in {{monthName}} month for community {{dict[communityId]}}</h3>
   <p style="margin-left: 30px;">Total Expense : {{totalExpense | currency:'INR':'symbol'}}</p>
   
     <div class="pieChart" style="width: 600px;height: 400px;display: flex;">
@@ -51,7 +51,7 @@
             <mat-option value="12" class="opt" >DEC</mat-option>
           </mat-select>
         </mat-form-field>
-        <button (click)="getExpensesByMonth()" mat-raised-button style="background-color:rgb(54, 162, 235);color: white;">Show Graph</button>
+        <button (click)="getExpensesByMonth()" mat-raised-button style="background-color:rgb(47, 143, 206);color: white;">View Graph</button>
       </mat-card>
       </div>
 

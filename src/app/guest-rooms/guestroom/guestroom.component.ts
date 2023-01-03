@@ -16,8 +16,7 @@ import { CaseDataService } from 'src/app/case-data.service';
   styleUrls: ['./guestroom.component.css']
 })
 export class GuestroomComponent implements OnInit {
-myControl = new FormControl('');
-// filteredOptions:Observable<string[]>
+filteredOptions!:Observable<string[]>
 type="Guest Room"
 tenantRole=""
 tenantFlatId:any
@@ -42,6 +41,7 @@ dateClash:any // \contains an array of dates in which the booked dates are clash
 varr="Show Booking Details"
   dynamicCommunityName: any;
   j: any;
+  x5:any; // used in mat autocomplete for filtering data
   allCommunitiesOfOneManager: any;
   temp: any;
   dict2: any={};
@@ -100,6 +100,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
         this.dataSource.paginator=this.paginator
         this.dataSource.sort=this.matSort
      this.x=data
+     this.x5 = data
      this.x.forEach((val:any) => {
       this.guestRoomNames.push(val.roomName)
     });
@@ -334,10 +335,10 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
     updatedBy: null,
     updatedDate: null
   })
-  // this.filteredOptions = this.myControl.valueChanges.pipe(
-  //   startWith(''),
-  //   map((value: any) => this._filter(value || '')),
-  // );
+  this.BookingForm.get('roomName')?.valueChanges.subscribe((res)=>{
+    this.filterData2(res);
+  })
+   
   }  
   // private _filter(value: string): string[] {
   //   console.log(value);
@@ -345,5 +346,12 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
   //   const filterValue = value.toLowerCase();
   //   return this.x.roomName.filter((option: any) => option.toLowerCase().includes(filterValue));
   // }
+
+  filterData2(res:any){
+    this.x = this.x5.filter((item:any)=>{
+      return item.roomName.toLowerCase().indexOf(res)>-1
+    })
+  }
+
 }
 

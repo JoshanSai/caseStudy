@@ -46,7 +46,7 @@ get SName() {
         this.c=false
       }
     } ));  
-    if(this.x==null){
+    if(this.x.token==null){
       this.c1=true
       console.log(this.c1);
     }
