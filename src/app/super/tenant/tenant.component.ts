@@ -271,7 +271,7 @@ export class TenantComponent implements OnInit {
     // }
     updateTenantAfterClicked(){
       console.log(this.tenantsForm.value);
-      let resp = this.http.put("http://localhost:2022/case/updateTenants/"+this.tenantsForm.get('id')?.value,this.tenantsForm.value)
+      let resp = this.http.put("http://localhost:2030/case/updateTenants/"+this.tenantsForm.get('id')?.value,this.tenantsForm.value)
       .subscribe((data=>{
         if(data!=null){
        alert("Successfully updated")

@@ -13,7 +13,7 @@ import { ExpendituresModule } from './expenditures/expenditures.module';
 import { GuestRoomsModule } from './guest-rooms/guest-rooms.module';
 import { FunctionHallModule } from './function-hall/function-hall.module';
 import { AuthGuard } from './auth.guard';
-import { TokenInterceptorService } from './token-interceptor.service';
+// import { TokenInterceptorService } from './token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
     GuestRoomsModule,
     FunctionHallModule
   ],
-  providers: [CaseDataService,AuthGuard,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}],
+  providers: [CaseDataService,AuthGuard],//,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}----- change josh
   bootstrap: [AppComponent]
 })
 export class AppModule { }

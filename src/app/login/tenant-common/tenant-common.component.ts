@@ -73,7 +73,7 @@ export class TenantCommonComponent implements OnInit {
     this.dynamicCommunityName=y
     console.log("josh");
     
-    let resp=this.http.get("http://localhost:2022/case/tenantsByComId/"+parseInt(x)+'/'+this.serv3.get_TenantName1()).
+    let resp=this.http.get("http://localhost:2030/case/tenantsByComId/"+parseInt(x)+'/'+this.serv3.get_TenantName1()).
     subscribe((data=>{
       console.log("dataaa",data);
       this.j=data

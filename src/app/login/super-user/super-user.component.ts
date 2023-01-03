@@ -33,7 +33,7 @@ get SName() {
     this.superuse.password=this.SPass.value
     this.caseService.SuperUserDetails(this.superuse).subscribe((data=>{
       this.x=data;  
-      this.caseService.set_Token(this.x.token)
+       this.caseService.set_Token(this.x.token) 
       if(this.x!=null){
         this.caseService.set_LoginVariable("login")
         this.caseService.Suser=this.SName.value

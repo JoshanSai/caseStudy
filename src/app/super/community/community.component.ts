@@ -93,7 +93,7 @@ notify:EventEmitter<any>=new EventEmitter<any>();
    }
    updateAfterClick(){
     let resp=this.http
-    .put("http://localhost:2022/case/updateCommunity/"+this.communityForm.get('id')?.value,this.communityForm.value)
+    .put("http://localhost:2030/case/updateCommunity/"+this.communityForm.get('id')?.value,this.communityForm.value)
    .subscribe((data=>{
     if(data!=null){
       alert("Succesfully updated")
@@ -105,7 +105,7 @@ notify:EventEmitter<any>=new EventEmitter<any>();
   }
    addCommunity(){
     console.log(this.communityForm.value);
-    let resp=this.http.post("http://localhost:2022/case/putCommunities",this.communityForm.value)
+    let resp=this.http.post("http://localhost:2030/case/putCommunities",this.communityForm.value)
     .subscribe((data=>{
       if(data==null){
         alert("community name already exits")
@@ -138,7 +138,7 @@ notify:EventEmitter<any>=new EventEmitter<any>();
         this.x = data;
         this.x.forEach((val:any) => {
           
-          let resp=this.http.get("http://localhost:2022/case/managersByComId/"+val.id).subscribe((data=>{
+          let resp=this.http.get("http://localhost:2030/case/managersByComId/"+val.id).subscribe((data=>{
             let y:any=data
             this.c=0
             y.forEach((val:any) => {

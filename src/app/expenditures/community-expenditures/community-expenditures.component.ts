@@ -27,7 +27,8 @@ a=false
 dialogs=false
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 datecurr : Date=new Date();
-month=(this.datecurr.getMonth()+1).toString()
+monthInSingleNumber=(this.datecurr.getMonth()+1).toString() // if january, it is 1 
+month=String(this.monthInSingleNumber).padStart(2, '0')   // converts above variable to "01"
 monthName=this.months[parseInt(this.month)-1]
 currYear=this.datecurr.getFullYear()
 y:any=[] //contains all expenses of a particular community for current month
@@ -232,7 +233,7 @@ AddExpenditures(){
     //   updatedBy:new FormControl(''),
     //   updatedDate:new FormControl()
     // })
-    let reps=this.http.put("http://localhost:2022/case/updateExpenses/"+this.uID+'/'+this.uFLATID,this.ExpensesForm.value).subscribe((data=>{
+    let reps=this.http.put("http://localhost:2030/case/updateExpenses/"+this.uID+'/'+this.uFLATID,this.ExpensesForm.value).subscribe((data=>{
       console.log("updated",data);
       if(data!=null){
        alert("Successfully Updated")
@@ -282,9 +283,8 @@ AddExpenditures(){
       alert("please enter year in YYYY format")
    }
    else{
-   let response=this.http.get("http://localhost:2022/case/expenses/byMonthAndComId/"+this.month+'/'+ this.currYear+'/'+this.tenantCommunityId)
+   let response=this.http.get("http://localhost:2030/case/expenses/byMonthAndComId/"+this.month+'/'+ this.currYear+'/'+this.tenantCommunityId)
    .subscribe(((data:any)=>{
-     
      this.x=data
      this.dataSource=new MatTableDataSource(data)
        this.dataSource.paginator=this.paginator
@@ -300,7 +300,7 @@ AddExpenditures(){
     this.toDate=formatDate(this.toDate,'dd-MMM-yyyy','en_US');
     console.log(this.fromDate);
     console.log(this.toDate);
-    let resp=this.http.get("http://localhost:2022/case/expensesRange/"+this.fromDate+'/'+this.toDate+'/'+this.tenantCommunityId)
+    let resp=this.http.get("http://localhost:2030/case/expensesRange/"+this.fromDate+'/'+this.toDate+'/'+this.tenantCommunityId)
     .subscribe(((data:any)=>{
       console.log(data);
       this.dataSource=new MatTableDataSource(data)
@@ -344,7 +344,7 @@ AddExpenditures(){
     }
      
     console.log(this.tenantCommunityId);
-    let response=this.http.get("http://localhost:2022/case/expenses/byMonthAndComId/"+this.month+'/'+ this.currYear+'/'+this.tenantCommunityId)
+    let response=this.http.get("http://localhost:2030/case/expenses/byMonthAndComId/"+this.month+'/'+ this.currYear+'/'+this.tenantCommunityId)
     .subscribe(((data:any)=>{
     this.x=data
     this.dataSource=new MatTableDataSource(data)

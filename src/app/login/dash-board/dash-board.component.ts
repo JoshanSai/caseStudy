@@ -33,8 +33,10 @@ totalExpense:any
 currYear:any
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 monthName:any
+currMonthIn2Digits:any
   constructor(private serv3 :CaseDataService,private http:HttpClient,private route :Router) {
     this.currMonth2=this.currMonth.getMonth()+1;
+    this.currMonthIn2Digits=String(this.currMonth2).padStart(2, '0')
     this.monthName=this.months[parseInt(this.currMonth2)-1]
     this.currYear=this.currMonth.getFullYear()
     if(this.serv3.get_tenantRole()=="communityManager"){ //checks if the logged in tenant is a community manager or not
@@ -73,7 +75,7 @@ monthName:any
       this.communityId=JSON.parse(this.serv3.get_CommunitiesOfManagers()!)[0];
     }  
     //below code displays current month graph
-    let response=this.http.get("http://localhost:2022/case/expenses/byMonthAndComId/"+this.currMonth2+'/'+ this.currYear+'/'+this.communityId).subscribe((data=>{
+    let response=this.http.get("http://localhost:2030/case/expenses/byMonthAndComId/"+this.currMonthIn2Digits+'/'+ this.currYear+'/'+this.communityId).subscribe((data=>{
       this.x=data
       if(this.x!=null){
         this.totalExpense=0
@@ -122,7 +124,8 @@ monthName:any
 
     getExpensesByMonth(){
       this.currMonth2=this.month
-    let response=this.http.get("http://localhost:2022/case/expenses/byMonthAndComId/"+this.month+'/'+ this.currYear+'/'+this.communityId).subscribe((data=>{
+      this.currMonthIn2Digits=String(this.currMonth2).padStart(2, '0')
+    let response=this.http.get("http://localhost:2030/case/expenses/byMonthAndComId/"+this.currMonthIn2Digits+'/'+ this.currYear+'/'+this.communityId).subscribe((data=>{
       this.x=data
       console.log(">>>>>",this.x);
       if(this.x[0]!=null){
@@ -181,20 +184,20 @@ monthName:any
       }
     });
    }
-  changeCommunity(x:any,y:any){
-    this.serv3.set_ComIdFromManager(parseInt(x))
-    this.serv3.set_CommunityName(y)
-    this.dynamicCommunityName=y
-    console.log("josh");
+  // changeCommunity(x:any,y:any){
+  //   this.serv3.set_ComIdFromManager(parseInt(x))
+  //   this.serv3.set_CommunityName(y)
+  //   this.dynamicCommunityName=y
+  //   console.log("josh");
     
-    let resp=this.http.get("http://localhost:2022/case/tenantsByComId/"+parseInt(x)+'/'+this.serv3.get_TenantName1()).
-    subscribe((data=>{
-      console.log("dataaa",data);
-      this.j=data
-      this.serv3.set_TenantFlatId(this.j[0].flatId) //when tenant details are fetched by name and com-id then original flat id is obtained
-      window.location.reload()
-    }))
-   }
+  //   let resp=this.http.get("http://localhost:2022/case/tenantsByComId/"+parseInt(x)+'/'+this.serv3.get_TenantName1()).
+  //   subscribe((data=>{
+  //     console.log("dataaa",data);
+  //     this.j=data
+  //     this.serv3.set_TenantFlatId(this.j[0].flatId) //when tenant details are fetched by name and com-id then original flat id is obtained
+  //     window.location.reload()
+  //   }))
+  //  }
   ngOnInit(): void {
 
     console.log(this.currMonth);

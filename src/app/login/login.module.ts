@@ -14,7 +14,7 @@ import { DashBoardComponent } from './dash-board/dash-board.component';
 import { ChooseCommunityComponent } from './choose-community/choose-community.component';
 import { AuthGuard } from '../auth.guard';
 import { TenantCommonComponent } from './tenant-common/tenant-common.component';
-import { TokenInterceptorService } from '../token-interceptor.service';
+ import { TokenInterceptorService } from '../token-interceptor.service';
 
 
 @NgModule({
@@ -37,6 +37,6 @@ import { TokenInterceptorService } from '../token-interceptor.service';
     MaterialModule
  
   ],
-  providers: [CaseDataService,DatePipe,AuthGuard,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}]
+  providers: [CaseDataService,DatePipe,AuthGuard,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}] 
 })
 export class LoginModule { }

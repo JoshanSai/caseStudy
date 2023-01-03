@@ -29,15 +29,15 @@
 <mat-form-field style="margin-left: 40px;" class="matForm">
     <mat-label >Select Month</mat-label>
     <mat-select  name="expenses" [(ngModel)]="month" id="expenses">
-      <mat-option value="1" class="opt" >JAN</mat-option>
-      <mat-option value="2" class="opt" >FEB</mat-option>
-      <mat-option value="3" class="opt" >MAR</mat-option>
-      <mat-option value="4" class="opt" >APR</mat-option>
-      <mat-option value="5" class="opt" >MAY</mat-option>
-      <mat-option value="6" class="opt" >JUN</mat-option>
-      <mat-option value="7" class="opt" >JUL</mat-option>
-      <mat-option value="8" class="opt" >AUG</mat-option>
-      <mat-option value="9" class="opt" >SEP</mat-option>
+      <mat-option value="01" class="opt" >JAN</mat-option>
+      <mat-option value="02" class="opt" >FEB</mat-option>
+      <mat-option value="03" class="opt" >MAR</mat-option>
+      <mat-option value="04" class="opt" >APR</mat-option>
+      <mat-option value="05" class="opt" >MAY</mat-option>
+      <mat-option value="06" class="opt" >JUN</mat-option>
+      <mat-option value="07" class="opt" >JUL</mat-option>
+      <mat-option value="08" class="opt" >AUG</mat-option>
+      <mat-option value="09" class="opt" >SEP</mat-option>
       <mat-option value="10" class="opt" >OCT</mat-option>
       <mat-option value="11" class="opt" >NOV</mat-option>
       <mat-option value="12" class="opt" >DEC</mat-option>
@@ -123,7 +123,7 @@
         </div>
         <div class="flatDetails">
             <mat-form-field>
-                <mat-label>Select flat</mat-label>
+                <mat-label>Type</mat-label>
                 <mat-select formControlName = "type">
                   <mat-option value="credit">credit</mat-option>
                   <mat-option value="debit">debit</mat-option>

@@ -8,6 +8,7 @@ import { CaseDataService } from './case-data.service';
 })
 export class TokenInterceptorService implements HttpInterceptor{
   constructor(private serv:CaseDataService) { }
+  
   intercept(req:HttpRequest<any>,next:HttpHandler):Observable<HttpEvent<any>>{
     let token=this.serv.get_Token()
       if (req.headers.get('No-Auth') === 'True') {

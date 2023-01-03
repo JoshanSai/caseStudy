@@ -49,8 +49,9 @@ get CName() {
     this.serv.set_TenantName1(this.CName.value)
     this.serv.GetTenantsByName(obj1).subscribe((data=>{
       this.x1=data
-      this.x=this.x1.user; 
-      this.serv.set_Token(this.x1.token) 
+     this.x=this.x1.user 
+      // this.x=data; 
+       this.serv.set_Token(this.x1.token)
       this.serv.set_TenantFlatId(this.x[0].flatId)
       //below code is responsible to determine the role of tenant upto line 67
       if(this.x[0].adminStartDate!=null && this.x[0].adminEndDate==null){ 

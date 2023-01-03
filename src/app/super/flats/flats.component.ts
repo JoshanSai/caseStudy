@@ -270,14 +270,17 @@ addFlat(){
   // }
   updateFlatAfterClicked(){
     this.a2=true
-    let resp=this.http.put("http://localhost:2022/case/updateFlats/"+this.updatingFlatId+'/',this.flatForm.value).subscribe((data=>{
+    console.log(this.flatForm.value);
+    
+    let resp=this.http.put("http://localhost:2030/case/updateFlats/"+this.updatingFlatId+'/',this.flatForm.value).subscribe((data=>{
       if(data!=null){
         alert("successfully updated")
         this.closeFlatForm()
         this.ngOnInit()
-        
       }
-      
+      else{
+        alert("flat number already exists")
+      }
     }))
   }
   // updateTenantAfterClicked(){

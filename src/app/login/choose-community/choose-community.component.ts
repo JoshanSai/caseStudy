@@ -45,7 +45,7 @@ getId(id: any){
     this.serv2.set_CommunityName(x[0].communityName)
 
   }))
-  let resp=this.http.get("http://localhost:2022/case/tenantsByComId/"+parseInt(this.serv2.get_ComIdFromManager()!)+'/'+this.serv2.get_TenantName1()).
+  let resp=this.http.get("http://localhost:2030/case/tenantsByComId/"+parseInt(this.serv2.get_ComIdFromManager()!)+'/'+this.serv2.get_TenantName1()).
     subscribe((data=>{
       console.log("dataaa",data);
       this.x1=data

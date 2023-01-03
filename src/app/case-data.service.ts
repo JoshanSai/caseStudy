@@ -17,35 +17,35 @@ comIdFromManager=0 // gets community from choose community component
 tenantName:any //gets tenant name from community manager component at line 46
 tenantRole="" //gets tenant role from community manager component after line 46
 tenantFlatId:any
-url1="http://localhost:2022/case/verify"
-url2="http://localhost:2022/case/verify-tenant"
-url3="http://localhost:2022/case/flatsId/"
-url4="http://localhost:2022/case/communityId/"
-url5="http://localhost:2022/case/community/"
-url6="http://localhost:2022/case/flats/"
-url7="http://localhost:2022/case/tenants/"
-url8="http://localhost:2022/case/putFlats/"
-url9="http://localhost:2022/case/putTenants/"
-url10="http://localhost:2022/case/expenses/"
-url11="http://localhost:2022/case/putExpenses"
-url12="http://localhost:2022/case/guestRooms/"
-url13="http://localhost:2022/case/putBooking"
-url14="http://localhost:2022/case/getBookings/"
-url15="http://localhost:2022/case/allBookings/"
-url16="http://localhost:2022/case/status/"
-url17="http://localhost:2022/case/putBookingF"
-url18="http://localhost:2022/case/getBookingsF/"
-url19="http://localhost:2022/case/allBookingsF/"
-url20="http://localhost:2022/case/statusF/"
-url21="http://localhost:2022/case/functionHalls/"
-url22="http://localhost:2022/case/tenantsByComId/"
+url1="http://localhost:2030/case/verify"
+url2="http://localhost:2030/case/verify-tenant"
+url3="http://localhost:2030/case/flatsId/"
+url4="http://localhost:2030/case/communityId/"
+url5="http://localhost:2030/case/community/"
+url6="http://localhost:2030/case/flats/"
+url7="http://localhost:2030/case/tenants/"
+url8="http://localhost:2030/case/putFlats/"
+url9="http://localhost:2030/case/putTenants/"
+url10="http://localhost:2030/case/expenses/"
+url11="http://localhost:2030/case/putExpenses"
+url12="http://localhost:2030/case/guestRooms/"
+url13="http://localhost:2030/case/putBooking"
+url14="http://localhost:2030/case/getBookings/"
+url15="http://localhost:2030/case/allBookings/"
+url16="http://localhost:2030/case/status/"
+url17="http://localhost:2030/case/putBookingF"
+url18="http://localhost:2030/case/getBookingsF/"
+url19="http://localhost:2030/case/allBookingsF/"
+url20="http://localhost:2030/case/statusF/"
+url21="http://localhost:2030/case/functionHalls/"
+url22="http://localhost:2030/case/tenantsByComId/"
 
 requestHeader = new HttpHeaders({
   "No-Auth": "True"
-});
+}); 
 
 SuperUserDetails(superclass:Superclass): Observable<object>{
-  return this.http.post(this.url1,superclass,{headers: this.requestHeader})
+  return this.http.post(this.url1,superclass,{headers: this.requestHeader}) 
 }
 GetTenantsByName(tenant : Tenantclass): Observable<object>{
   return this.http.post(this.url2,tenant,{headers: this.requestHeader})

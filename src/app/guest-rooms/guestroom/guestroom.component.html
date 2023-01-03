@@ -1,7 +1,6 @@
 <body style="height: 1000px;"> 
 <div class="heading">
     <h2>Guest Rooms of {{communityName}}</h2>
-    
 <!-- <input type="text" [matAutocomplete]="autoJ" placeholder="Community Name" class="gap">
     <mat-autocomplete #autoJ="matAutocomplete" >
       <mat-option *ngFor="let opt of dict2| keyvalue" [value]="opt.value" (click)="changeCommunity(opt.key,opt.value)">
@@ -98,7 +97,7 @@
         </div> -->
         <div class="flatDetails">
             <mat-form-field>
-            <input  type="text" [formControl]="myControl" [matAutocomplete]="auto2" formControlName = "roomName" placeholder="roomName" matInput/>
+            <input  type="text"  [matAutocomplete]="auto2" formControlName = "roomName" placeholder="roomName" matInput/>
             
             <div *ngIf = "ROOMNAME.touched &&  ROOMNAME.invalid">
                 <p><small style="color:rgb(217, 54, 54)"> enter valid room name </small></p>
