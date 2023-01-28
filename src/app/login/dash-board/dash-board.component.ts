@@ -29,7 +29,8 @@ dynamicCommunityName:any
 j: any;
 comName:any
 topNavigate=false
-totalExpense:any
+totalCredit:any
+totalDebit:any
 currYear:any
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 monthName:any
@@ -42,6 +43,15 @@ currMonthIn2Digits:any
     if(this.serv3.get_tenantRole()=="communityManager"){ //checks if the logged in tenant is a community manager or not
       if(parseInt(this.serv3.get_ComIdFromManager()!)==0){ // if CM is not from different communities
         this.communityId=JSON.parse(this.serv3.get_CommunitiesOfManagers()!)[0];
+        this.allCommunitiesOfOneManager=JSON.parse(this.serv3.get_CommunitiesOfManagers()!)
+        //below code gets all community details and stores names and ids in a dictionary 
+   this.allCommunitiesOfOneManager.forEach((val:any) => {
+     this.serv3.GetCommunitiesById(val).subscribe((data=>{
+       this.temp=data
+       this.dict[this.temp[0].id]=this.temp[0].communityName
+     }))
+   });
+   console.log("netra",this.dict);
       } 
       else{   // if CM is from different communities
         this.topNavigate=true
@@ -73,21 +83,31 @@ currMonthIn2Digits:any
     }
     else{ // if he is not a community manager
       this.communityId=JSON.parse(this.serv3.get_CommunitiesOfManagers()!)[0];
+      this.allCommunitiesOfOneManager=JSON.parse(this.serv3.get_CommunitiesOfManagers()!)
+      //below code gets all community details and stores names and ids in a dictionary 
+ this.allCommunitiesOfOneManager.forEach((val:any) => {
+   this.serv3.GetCommunitiesById(val).subscribe((data=>{
+     this.temp=data
+     this.dict[this.temp[0].id]=this.temp[0].communityName
+   }))
+ });
     }  
     //below code displays current month graph
-    let response=this.http.get("http://localhost:2030/case/expenses/byMonthAndComId/"+this.currMonthIn2Digits+'/'+ this.currYear+'/'+this.communityId).subscribe((data=>{
+    let response=this.http.get(this.serv3.url24+this.currMonthIn2Digits+'/'+ this.currYear+'/'+this.communityId).subscribe((data=>{
       this.x=data
       if(this.x!=null){
-        this.totalExpense=0
+        this.totalCredit=0
+        this.totalDebit=0
         this.x.forEach(((val:any)=>{
-          this.totalExpense=this.totalExpense+val.amount
           if(val.communityId==this.communityId){
            this.lableData.push( val.transactionDate.slice(8,))
            if(val.type=="credit"){
             this.dataData.push(val.amount)
+            this.totalCredit=this.totalCredit+val.amount
            }
            else{ 
             this.dataData.push(-val.amount)
+            this.totalDebit=this.totalDebit+val.amount
            }
            
           } 
@@ -125,21 +145,23 @@ currMonthIn2Digits:any
     getExpensesByMonth(){
       this.currMonth2=this.month
       this.currMonthIn2Digits=String(this.currMonth2).padStart(2, '0')
-    let response=this.http.get("http://localhost:2030/case/expenses/byMonthAndComId/"+this.currMonthIn2Digits+'/'+ this.currYear+'/'+this.communityId).subscribe((data=>{
+    let response=this.http.get(this.serv3.url24+this.currMonthIn2Digits+'/'+ this.currYear+'/'+this.communityId).subscribe((data=>{
       this.x=data
       console.log(">>>>>",this.x);
       if(this.x[0]!=null){
-        this.totalExpense=0
+        this.totalCredit=0
+        this.totalDebit=0
         this.monthName=this.months[parseInt(this.month)-1]
         this.x.forEach(((val:any)=>{
-          this.totalExpense=this.totalExpense+val.amount
           if(val.communityId==this.communityId){
            this.lableData.push( val.transactionDate.slice(8,))
            if(val.type=="credit"){
             this.dataData.push(val.amount)
+            this.totalCredit=this.totalCredit+val.amount
            }
            else{ 
             this.dataData.push(-val.amount)
+            this.totalDebit=this.totalDebit+val.amount
            }
            
           } 

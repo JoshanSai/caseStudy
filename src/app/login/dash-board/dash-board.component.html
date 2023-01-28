@@ -1,30 +1,14 @@
 <body>
 <div class="dashBoard">
     <h2 class="heading">DASHBOARD for {{comName}}</h2>
-   
-    <!-- <button class="gap" mat-raised-button color="" routerLink="/guestroom">Guest Rooms</button>
-    <button class="gap" mat-raised-button color="" routerLink="/functions">Function Halls</button> -->
-   
-    <!-- <input type="text" [matAutocomplete]="auto" placeholder="Community Name" class="gap">
-    <mat-autocomplete #auto="matAutocomplete" >
-      <mat-option *ngFor="let opt of dict| keyvalue" [value]="opt.value" (click)="changeCommunity(opt.key,opt.value)">
-        {{opt.value}}
-      </mat-option>
-    </mat-autocomplete> -->
-      <!-- <mat-form-field class="communitySelect" *ngIf="topNavigate">
-        <mat-label >Change Community</mat-label>
-        <mat-select placeholder="{{comName}}">
-          <mat-option *ngFor="let opt of dict| keyvalue" (click)="changeCommunity(opt.key,opt.value)">{{opt.value}}</mat-option>
-        </mat-select>
-      </mat-form-field>-->
 </div>
-
- 
-  
- 
   <h3 style="text-align:center;margin-top: 20px;">All expenses in {{monthName}} month for community {{dict[communityId]}}</h3>
-  <p style="margin-left: 30px;">Total Expense : {{totalExpense | currency:'INR':'symbol'}}</p>
-  
+  <br>
+  <div style="display: flex;">
+  <p style="margin-left: 30px;">Credit : {{totalCredit | currency:'INR':'symbol'}}</p>
+  <p style="margin-left: 30px;">Debit : {{totalDebit | currency:'INR':'symbol'}}</p>
+  <p style="margin-left: 30px;">Total Amount : {{totalCredit-totalDebit | currency:'INR':'symbol'}}</p>
+</div>
     <div class="pieChart" style="width: 600px;height: 400px;display: flex;">
       
         <canvas id="pieChart" ></canvas>

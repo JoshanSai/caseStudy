@@ -12,7 +12,7 @@
   }
 .body{
     background-color:whitesmoke;
-    height:800px;
+    height:900px;
 }
 .subheading{
     font-family: cursive;
@@ -43,4 +43,9 @@
     margin-left: 90px;
     background-color:rgb(39, 154, 193) ;
     color: white;
+}
+
+.divFirst{
+    height: 200px;
+    overflow-y: scroll;
 }

@@ -22,7 +22,7 @@ display: flex;
 }
 .lable{
     padding-top: 20px;
-    margin-left: 200px;
+    margin-left: 150px;
     color: white;
 }
 .user{
@@ -34,4 +34,7 @@ display: flex;
     margin-top: 10px;
     margin-left: 10px;
     border-radius: 5px;
+}
+.active{
+    color: aqua;
 }

@@ -39,7 +39,17 @@ url19="http://localhost:2030/case/allBookingsF/"
 url20="http://localhost:2030/case/statusF/"
 url21="http://localhost:2030/case/functionHalls/"
 url22="http://localhost:2030/case/tenantsByComId/"
-
+url23="http://localhost:2030/case/tenantsByComId/" //--------- to extract tenants by community id
+url24="http://localhost:2030/case/expenses/byMonthAndComId/" // ----- to get expenses by month year and comId
+url25="http://localhost:2030/case/tenantsByComId/" //---- get tenants by comId
+url26="http://localhost:2030/case/expensesRange/" //---- get expenses by given date range
+url27="http://localhost:2030/case/putBooking1/" //----- for booking function halls
+url28="http://localhost:2030/case/updateCommunity/" //----- for updating communities
+url29="http://localhost:2030/case/putCommunities" //----- for adding new communities
+url30="http://localhost:2030/case/managersByComId/" //---- to get all managers of particular community
+url31="http://localhost:2030/case/updateFlats/" //---- for updating flats
+url32="http://localhost:2030/case/updateTenants/" //---- for updating tenants
+URLgetTenantByName="//localhost:2030/case/tenantsByName/" //---- for getting tenant by name
 requestHeader = new HttpHeaders({
   "No-Auth": "True"
 }); 
@@ -190,4 +200,11 @@ get_Token(){
 set_Token(x:any){
   return sessionStorage.setItem('token',x);
 }
+get_TenantEmail(){
+  return sessionStorage.getItem('email');
+}
+set_TenantEmail(x:any){
+  return sessionStorage.setItem('email',x);
+}
+
 }

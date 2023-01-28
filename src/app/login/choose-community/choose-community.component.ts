@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -17,6 +18,7 @@ x:any=[]
 y:any=[]
 z:any
 x1:any
+date:any
 dataSource!:MatTableDataSource<any>
 @ViewChild(MatSort) matSort!: MatSort;
 @ViewChild('paginator') paginator!: MatPaginator
@@ -45,12 +47,31 @@ getId(id: any){
     this.serv2.set_CommunityName(x[0].communityName)
 
   }))
-  let resp=this.http.get("http://localhost:2030/case/tenantsByComId/"+parseInt(this.serv2.get_ComIdFromManager()!)+'/'+this.serv2.get_TenantName1()).
+  let resp=this.http.get(this.serv2.url25+parseInt(this.serv2.get_ComIdFromManager()!)+'/'+this.serv2.get_TenantName1()).
     subscribe((data=>{
       console.log("dataaa",data);
       this.x1=data
       this.serv2.set_TenantFlatId(this.x1[0].flatId) //when tenant details are fetched by name and com-id then original flat id is obtained
       this.route.navigate(['/tenantCommon'])
+      // below code is to find the role of the tenant
+      if(this.x1[0].adminStartDate!=null && this.x1[0].adminEndDate==null){ 
+        this.serv2.set_tenantRole("communityManager")
+      }
+      else if(this.x1[0].adminStartDate!=null && this.x1[0].adminEndDate!=null){
+        this.date = formatDate(new Date(),'yyyy-MM-dd','en_US');
+        let date2 = formatDate(this.x[0].adminEndDate,'yyyy-MM-dd','en_US');
+        if(this.date<date2){
+          this.serv2.tenantRole="communityManager"
+          this.serv2.set_tenantRole("communityManager")
+         }else{
+          this.serv2.tenantRole="tenant"
+          this.serv2.set_tenantRole("tenant")
+         }
+      }
+      else{
+        this.serv2.tenantRole="tenant"
+        this.serv2.set_tenantRole("tenant")
+      }
     }))
   console.log('id',id);
   console.log(this.serv2.comIdFromManager);

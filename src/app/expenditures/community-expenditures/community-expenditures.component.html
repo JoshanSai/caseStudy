@@ -1,6 +1,7 @@
 <body>
-<div class="heading2" >
-    <h2>Expenditures of {{communityName}} in {{monthName}} </h2>
+<div class="heading2" id="head">
+    <h2 *ngIf="!dateRangeCondition">Expenditures of {{communityName}} in {{monthName}} </h2>
+    <h2 *ngIf="dateRangeCondition">Expenditure of {{communityName}} between {{fromDate}} and {{toDate}} </h2>
     <!-- <input type="text" [matAutocomplete]="autoJ" placeholder="Community Name" class="gap">
     <mat-autocomplete #autoJ="matAutocomplete" >
       <mat-option *ngFor="let opt of dict2| keyvalue" [value]="opt.value" (click)="changeCommunity(opt.key,opt.value)">
@@ -60,7 +61,7 @@
     <mat-table [dataSource]="dataSource" matSort class="mat-elevtion-z8 && table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Sl No.</mat-header-cell>
-            <mat-cell *matCellDef="let dataSource;index as y">{{y+1}}</mat-cell>
+            <mat-cell *matCellDef="let dataSource;index as y">{{ (paginator.pageIndex * paginator.pageSize) + (y + 1) }}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="amount">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Amount</mat-header-cell>
@@ -94,7 +95,8 @@
         <mat-row *matRowDef="let row;columns:ExpensesColumns;"></mat-row>
     </mat-table>
     <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]"  aria-label="Select page" class="paginator"></mat-paginator>
-    <button *ngIf="tenantRole=='communityManager'" mat-raised-button class="blackBtn" style="margin-left: 30px;margin-top: 5px;" (click)="appearDropDown()">Add Expense</button>
+    <button  mat-raised-button class="blackBtn" style="margin-left: 30px;margin-top: 5px;" (click)="appearDropDown()">Add Expense</button>
+    <div id="form">
     <dialog id="myDialog" [open]="dialogs" class="dialog">
         <button (click)="cancelTransaction()" class="close" ><small><b>close</b></small></button>
     <form style="margin-left: 20px;margin-top: 40px;" [formGroup] = "ExpensesForm" >
@@ -126,7 +128,7 @@
                 <mat-label>Type</mat-label>
                 <mat-select formControlName = "type">
                   <mat-option value="credit">credit</mat-option>
-                  <mat-option value="debit">debit</mat-option>
+                  <mat-option value="debit" *ngIf="tenantCondition" >debit</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -179,5 +181,6 @@
     <button *ngIf="updateCondition1" mat-raised-button (click)="update()">Confirm</button>
     </form>
 </dialog>
+</div>
 </body>
      

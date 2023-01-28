@@ -13,7 +13,7 @@ import { CaseDataService } from 'src/app/case-data.service';
   styleUrls: ['./tenant.component.css']
 })
 export class TenantComponent implements OnInit {
-
+  commId:any // when update button is clicked for a tenant then that tenant comId is given to this varible
   comID=0
   x:any // contains all flats by community id
   y:any
@@ -32,7 +32,7 @@ export class TenantComponent implements OnInit {
   addUpdate3=false
   tenantFormFlatId:any //used to convert the flat id frm string to integer 
   displayedColumns: String[]=['no','flatNumber','numberOfRooms','Sqft','update'];
-  tenantColumns: String[]=['no','flatId','personName','update'];
+  tenantColumns: String[]=['no','flatId','email','update'];
    @ViewChild(FormGroupDirective) myForm:any;
   // dataSource1!:MatTableDataSource<any>
   dataSource2!:MatTableDataSource<any>
@@ -43,63 +43,6 @@ export class TenantComponent implements OnInit {
     constructor(private caseService2 : CaseDataService,private http:HttpClient, private route: ActivatedRoute,private router : Router) { 
      
     }
-  // flatForm=new FormGroup({
-  //   id:new FormControl(),
-  //   Sqft:new FormControl(null,Validators.required),
-  //   communityId:new FormControl(this.comID),
-  //   flatNumber:new FormControl('',Validators.required),
-  //   numberOfRooms:new FormControl(null,Validators.required),
-  //   updatedDate:new FormControl(),
-  //   createdBy:new FormControl(this.caseService2.get_SuperUserName(),),
-  //   createdDate:new FormControl()
-  // })
-  // closeFlatForm(){
-  //   this.flatForm.reset()
-  //   this.a1=false
-  // }
-  // get ID() {
-  //   return this.flatForm.get('id')!;
-  // }
-  // get SQFT() {
-  // return this.flatForm.get('Sqft')!;
-  // }
-  // get COMID() {
-  //   return this.flatForm.get('communityId')!;
-  // }
-  // get FLATNO() {
-  //   return this.flatForm.get('flatNumber')!;
-  // }
-  // get ROOMS(){
-  //    return this.flatForm.get('numberOfRooms')!;
-  //  }
-  //  get UDT(){
-  //   return this.flatForm.get('updatedDate')!;
-  // }
-  // get CBY(){
-  //   return this.flatForm.get('createdBy')!;
-  // }
-  // get CDT(){
-  //   return this.flatForm.get('createdDate')!;
-  // }
-  // showData1(){
-  //   this.addUpdate=true
-  //  if(this.a1==false){
-  //   this.a1=true
-  //  }
-  //  else{
-  //   this.a1=false
-  //  }
-  //  this.flatForm.setValue({
-  //   id:null,
-  //   communityId: this.comID,
-  //   Sqft: null,
-  //   flatNumber: null,
-  //   numberOfRooms: null,
-  //   updatedDate: null,
-  //   createdBy: this.caseService2.get_SuperUserName(),
-  //   createdDate: null
-  // })
-  // }
   showData2(){
     this.tenantsForm.reset();
     // this.tenantsForm.resetForm();
@@ -131,7 +74,7 @@ export class TenantComponent implements OnInit {
     flatId:new FormControl(null,[Validators.required]),
     personName:new FormControl('',Validators.required),
     phoneNumber:new FormControl(1),
-    email:new FormControl(''),
+    email:new FormControl('',Validators.required),
     password:new FormControl('',Validators.required),
     memberSince:new FormControl(''),
     adminStartDate:new FormControl(),
@@ -213,7 +156,7 @@ export class TenantComponent implements OnInit {
       this.caseService2.InsertNewTenants(this.comID,this.tenantsForm.value).subscribe(data=>{
         console.log("222222",data);
         if(data==null){
-          alert("name already exists")
+          alert("E-mail already exists")
         }
         else{
           alert("sucessfully added")
@@ -239,7 +182,7 @@ export class TenantComponent implements OnInit {
       
     // }
     updateTenant(id:any,flatid:any,phoneNumber:any,email:any,password:any,memberSince:any
-      ,adminStartDate:any,adminEndDate:any,personaname:any){
+      ,adminStartDate:any,adminEndDate:any,personaname:any,commId:any){
         this.tenantsForm.setValue({
               id:id,
               flatId: flatid,
@@ -256,6 +199,7 @@ export class TenantComponent implements OnInit {
         this.addUpdate3=true
         this.addUpdate2=false
       this.a2=true
+      this.commId=commId
       console.log(this.tenantsForm.value);
       
     }
@@ -271,7 +215,7 @@ export class TenantComponent implements OnInit {
     // }
     updateTenantAfterClicked(){
       console.log(this.tenantsForm.value);
-      let resp = this.http.put("http://localhost:2030/case/updateTenants/"+this.tenantsForm.get('id')?.value,this.tenantsForm.value)
+      let resp = this.http.put("http://localhost:2030/case/updateTenants/"+this.tenantsForm.get('id')?.value+'/'+this.commId,this.tenantsForm.value)
       .subscribe((data=>{
         if(data!=null){
        alert("Successfully updated")

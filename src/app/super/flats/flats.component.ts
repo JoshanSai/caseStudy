@@ -110,99 +110,6 @@ showData1(){
   createdDate: null
 })
 }
-// showData2(){
-//   this.tenantsForm.reset();
-//   // this.tenantsForm.resetForm();
-//   this.addUpdate2=true
-//   this.addUpdate3=false
-//   if(this.a2==false){
-//    this.a2=true
-//   }
-//   else{
-//    this.a2=false
-//   }
-//   console.log('this.tenantsform>>', this.tenantsForm);
-//   // this.tenantsForm.setValue({
-//   //   id:null,
-//   //   flatId: null,
-//   //   personName: null,
-//   //   phoneNumber: null,
-//   //   email: null,
-//   //   password: null,
-//   //   memberSince: null,
-//   //   adminStartDate: null,
-//   //   adminEndDate: null,
-//   //   createdBy: this.caseService2.get_SuperUserName(),
-//   //   createdDate: null
-//   // })
-//  }
-// tenantsForm=new FormGroup({
-//   id:new FormControl(),
-//   flatId:new FormControl(null,[Validators.required]),
-//   personName:new FormControl('',Validators.required),
-//   phoneNumber:new FormControl(1),
-//   email:new FormControl(''),
-//   password:new FormControl('',Validators.required),
-//   memberSince:new FormControl(''),
-//   adminStartDate:new FormControl(),
-//   adminEndDate:new FormControl(),
-//   createdBy:new FormControl(),
-//   createdDate:new FormControl()
-
-// })
-// closeTenantFrom(){
-//   this.tenantsForm.setValue({
-//     id: null,
-//     flatId: null,
-//     personName: null,
-//     phoneNumber: null,
-//     email: null,
-//     password: null,
-//     memberSince: null,
-//     adminStartDate: null,
-//     adminEndDate: null,
-//     createdBy: null,
-//     createdDate: null
-//   })
-// this.tenantsForm.reset()
-//   this.a2=false
-//  console.log("closed");
- 
-// }
-// get TID(){
-//   return this.tenantsForm.get('id');
-// }
-// get TFLATID(){
-//   return this.tenantsForm.get('flatId');
-// }
-// get TpersonName(){
-//   return this.tenantsForm.get('personName');
-// }
-// get TphoneNumber(){
-//   return this.tenantsForm.get('phoneNumber');
-// }
-// get Temail(){
-//   return this.tenantsForm.get('email');
-// }
-// get Tpassword(){
-//   return this.tenantsForm.get('password');
-// }
-// get TmemberSince(){
-//   return this.tenantsForm.get('memberSince');
-// }
-// get TadminStartDate(){
-//   return this.tenantsForm.get('adminStartDate');
-// }
-// get TadminEndDate(){
-//   return this.tenantsForm.get('adminEndDate');
-// }
-// get createdBY(){
-//   return this.tenantsForm.get('createdBy');
-// }
-// get createdDATE(){
-//   return this.tenantsForm.get('createdDate');
-// }
-
 addFlat(){
   
   this.caseService2.InsertNewFlats(this.flatForm.value).toPromise().then(data=>{
@@ -219,18 +126,6 @@ addFlat(){
    })
    console.log(this.flatForm.value); 
 }
-// addTenants(){
-//   console.log("TENANT FORM",this.tenantsForm.value);
-//     this.caseService2.InsertNewTenants(this.comID,this.tenantsForm.value).subscribe(data=>{
-//       console.log("222222",data);
-//       if(data==null){
-//         alert("name already exists")
-//       }
-//       else{
-//         alert("sucessfully added")
-//       }
-//      })
-//   }
   updateFlat(id:any,flatNumber:any,numberOfRooms:any,Sqft:any){
     this.a1=true
     this.addUpdate=false
@@ -247,34 +142,14 @@ addFlat(){
     this.updatingFlatId=id
     
   }
-  // updateTenant(id:any,flatid:any,phoneNumber:any,email:any,password:any,memberSince:any
-  //   ,adminStartDate:any,adminEndDate:any,personaname:any){
-  //     this.tenantsForm.setValue({
-  //           id:id,
-  //           flatId: flatid,
-  //           personName: personaname,
-  //           phoneNumber: phoneNumber,
-  //           email: email,
-  //           password:"password",
-  //           memberSince: memberSince,
-  //           adminStartDate: adminStartDate,
-  //           adminEndDate: adminEndDate,
-  //           createdBy: this.caseService2.get_SuperUserName(),
-  //           createdDate: null
-  //         }) 
-  //     this.addUpdate3=true
-  //     this.addUpdate2=false
-  //   this.a2=true
-  //   console.log(this.tenantsForm.value);
-    
-  // }
   updateFlatAfterClicked(){
     this.a2=true
     console.log(this.flatForm.value);
     
-    let resp=this.http.put("http://localhost:2030/case/updateFlats/"+this.updatingFlatId+'/',this.flatForm.value).subscribe((data=>{
+    let resp=this.http.put(this.caseService2.url31+this.updatingFlatId+'/',this.flatForm.value).subscribe((data=>{
       if(data!=null){
         alert("successfully updated")
+        this.myForm.resetForm()
         this.closeFlatForm()
         this.ngOnInit()
       }

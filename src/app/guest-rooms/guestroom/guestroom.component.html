@@ -1,5 +1,5 @@
 <body style="height: 1000px;"> 
-<div class="heading">
+<div class="heading" id="head">
     <h2>Guest Rooms of {{communityName}}</h2>
 <!-- <input type="text" [matAutocomplete]="autoJ" placeholder="Community Name" class="gap">
     <mat-autocomplete #autoJ="matAutocomplete" >
@@ -71,7 +71,7 @@
     <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]"  aria-label="Select page" class="paginator" ></mat-paginator>
 <button (click)="BookRooms()" mat-raised-button class="btn" >Book Rooms</button>
 <button (click)="ShowBookingDetails()" mat-raised-button class="btn2">{{varr}}</button>
-
+<div id="form">
 <dialog id="myDialog" [open]="dialog" class="dialog">
     <button (click)="closeDialog()" class="close"><small>close</small></button>
     <form style="margin-left: 20px;margin-top: 40px;" [formGroup] = "BookingForm" >
@@ -97,7 +97,7 @@
         </div> -->
         <div class="flatDetails">
             <mat-form-field>
-            <input  type="text"  [matAutocomplete]="auto2" formControlName = "roomName" placeholder="roomName" matInput/>
+            <input  type="text"  [matAutocomplete]="auto2" formControlName = "roomName" placeholder="Room Name" matInput/>
             <div *ngIf = "ROOMNAME.touched &&  ROOMNAME.invalid">
                 <p><small style="color:rgb(217, 54, 54)"> enter valid room name </small></p>
               </div>
@@ -152,6 +152,7 @@
     <button mat-raised-button [disabled]="!BookingForm.valid" (click)="confirmBooking()" >Confirm</button>
     </form>
 </dialog>
+</div>
 <!-- <table id="customers" *ngIf="a" style="width: 85%;">
     <tr>
       <th class="column">Sl No.</th>
@@ -179,7 +180,7 @@
     </tr>
     </table> -->
     
-    <mat-table [dataSource]="y" matSort class="mat-elevtion-z8 table2" *ngIf="a">
+    <mat-table [dataSource]="y" matSort class="mat-elevtion-z8 table2" *ngIf="a" id="table">
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Sl No.</mat-header-cell>
             <mat-cell *matCellDef="let y;index as j">{{j+1}}</mat-cell>

@@ -8,7 +8,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import {  window} from 'rxjs';
+import {  elementAt, window} from 'rxjs';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { CaseDataService } from 'src/app/case-data.service';
 
 @Component({
@@ -17,7 +18,10 @@ import { CaseDataService } from 'src/app/case-data.service';
   styleUrls: ['./community-expenditures.component.css']
 })
 export class CommunityExpendituresComponent implements OnInit {
+tenantCondition:any // used to disable the debit option when tenant is not a communtiy manager 
+dateRangeCondition=false
 tenantRole=""
+tenantEmail:any
 tenant:any
 tenantName:any
 tenantCommunityId:any
@@ -67,15 +71,19 @@ currDate=formatDate(new Date(),'yyyy-MM-dd','en_US');
 ExpensesColumns: String[]=['id','amount','comments','createdBy','flatId','transactionDate','type','btn']
 fromDate:any
 toDate:any
+FROMDATE:any
+TODATE:any
   constructor(private serv3 : CaseDataService,private http:HttpClient,private route:Router) { 
     this.communityName=this.serv3.get_CommunityName()!
     this.tenantRole=this.serv3.get_tenantRole()!
     this.tenantName=this.serv3.get_TenantName1()
+    this.tenantEmail=this.serv3.get_TenantEmail()
     console.log(this.serv3.tenantRole);
     console.log("byee",this.tenantRole);
     this.tenant=this.serv3.get_TenantName1()
 }
      appearDropDown(){
+      document.getElementById('form')?.scrollIntoView({behavior:"smooth"})
       this.updateCondition=true
       this.updateCondition1=false
     if(this.dialogs==false){
@@ -93,12 +101,17 @@ toDate:any
       transactionDate: this.currDate,
       references: null,
       comments: null,
-      createdBy: this.tenantName,
+      createdBy: this.tenantEmail,
       createdDate: null,
       updatedBy: null,
       updatedDate: null
     })
-
+    if(this.tenantRole=="communityManager"){
+      this.tenantCondition=true
+    }
+    else{
+      this.tenantCondition=false
+    }
    }
    ExpensesForm=new FormGroup({
     // id:new FormControl(),
@@ -181,9 +194,11 @@ AddExpenditures(){
     this.ExpensesForm.markAsUntouched()
     this.myForm.resetForm()
     this.dialogs=false
+    document.getElementById('head')?.scrollIntoView({behavior:"smooth"})
    
   }
   UpdateExpenditures(id:any,amount:any,transactionDate:any,flatNumber:any,type:any,faltId:any,comments:any){
+    document.getElementById('form')?.scrollIntoView({behavior:"smooth"})
     this.updateCondition=false
     this.updateCondition1=true
     this.dialogs=true
@@ -213,11 +228,13 @@ AddExpenditures(){
       transactionDate: transactionDate,
       references: null,
       comments: comments,
-      createdBy: this.tenantName,
+      createdBy: this.tenantEmail,
       createdDate: null,
       updatedBy: null,
       updatedDate: null
     })
+    console.log(this.ExpensesForm.value);
+    
   }
   update(){
     // this.ExpensesForm=new FormGroup({
@@ -249,7 +266,7 @@ AddExpenditures(){
         transactionDate: null,
         references: null,
         comments: null,
-        createdBy: this.tenantName,
+        createdBy: this.tenantEmail,
         createdDate: null,
         updatedBy: null,
         updatedDate: null
@@ -277,13 +294,16 @@ AddExpenditures(){
     this.route.navigate([''])
    }
    getExpensesByMonth(){
+    this.fromDate=null
+    this.toDate=null
+    this.dateRangeCondition=false
     console.log("hii",this.currYear,this.month);
     this.monthName=this.months[parseInt(this.month)-1]
     if(this.currYear.toString().length!=4){
       alert("please enter year in YYYY format")
    }
    else{
-   let response=this.http.get("http://localhost:2030/case/expenses/byMonthAndComId/"+this.month+'/'+ this.currYear+'/'+this.tenantCommunityId)
+   let response=this.http.get(this.serv3.url24+this.month+'/'+ this.currYear+'/'+this.tenantCommunityId)
    .subscribe(((data:any)=>{
      this.x=data
      this.dataSource=new MatTableDataSource(data)
@@ -296,17 +316,23 @@ AddExpenditures(){
     this.dataSource.filter=$event.target.value
    }
    getExpensesByRange(){
-    this.fromDate=formatDate(this.fromDate,'dd-MMM-yyyy','en_US');
-    this.toDate=formatDate(this.toDate,'dd-MMM-yyyy','en_US');
+    if(this.fromDate!=undefined && this.toDate!=undefined){
+    this.dateRangeCondition=true
+    this.FROMDATE=formatDate(this.fromDate,'dd-MMM-yyyy','en_US');
+    this.TODATE=formatDate(this.toDate,'dd-MMM-yyyy','en_US');
     console.log(this.fromDate);
     console.log(this.toDate);
-    let resp=this.http.get("http://localhost:2030/case/expensesRange/"+this.fromDate+'/'+this.toDate+'/'+this.tenantCommunityId)
+    let resp=this.http.get(this.serv3.url26+this.FROMDATE+'/'+this.TODATE+'/'+this.tenantCommunityId)
     .subscribe(((data:any)=>{
       console.log(data);
       this.dataSource=new MatTableDataSource(data)
       this.dataSource.paginator=this.paginator
       this.dataSource.sort=this.matSort
     }))
+  }
+  else{
+    alert("please enter dates")
+  }
    }
   ngOnInit(): void {
     //===============================================main code is below
@@ -344,25 +370,44 @@ AddExpenditures(){
     }
      
     console.log(this.tenantCommunityId);
-    let response=this.http.get("http://localhost:2030/case/expenses/byMonthAndComId/"+this.month+'/'+ this.currYear+'/'+this.tenantCommunityId)
+    let response=this.http.get(this.serv3.url24+this.month+'/'+ this.currYear+'/'+this.tenantCommunityId)
     .subscribe(((data:any)=>{
     this.x=data
     this.dataSource=new MatTableDataSource(data)
         this.dataSource.paginator=this.paginator
         this.dataSource.sort=this.matSort
   }))
+
 this.serv3.GetFlatsByCommunityId(this.tenantCommunityId).subscribe((data=>{
   this.z=data
   this.z.forEach((val:any) => {
     this.flatIds.push(val.id)
-    this.dict[val.flatNumber]=val.id
+    // this.dict[val.flatNumber]=val.id
     this.dict3[val.id]=val.flatNumber
   });
 }))
 this.flatIds.push(0)
-this.dict["Common Area"]=0
+// this.dict["Common Area"]=0
 this.dict3[0]="Common Area"
 console.log("dict",this.dict);
+// below code is for displaying respective flats when adding expenses in form
+if(this.tenantRole=='communityManager'){
+  this.serv3.GetFlatsByCommunityId(this.tenantCommunityId).subscribe((data=>{
+    this.z=data
+    this.z.forEach((val:any) => {
+      this.flatIds.push(val.id)
+      this.dict[val.flatNumber]=val.id
+    });
+  }))
+  this.flatIds.push(0)
+  this.dict["Common Area"]=0
+}
+else{
+  this.serv3.GetFlatsById(parseInt(this.serv3.get_TenantFlatId()!)).subscribe(data=>{
+    let x:any=data
+    this.dict[x[0].flatNumber]=x[0].id
+  })
+}
 if(this.tenantRole=='communityManager'){
   this.update_condition=true
 }
@@ -375,7 +420,7 @@ this.ExpensesForm.setValue({
   transactionDate: null,
   references: null,
   comments: null,
-  createdBy: this.tenantName,
+  createdBy: this.tenantEmail,
   createdDate: null,
   updatedBy: null,
   updatedDate: null

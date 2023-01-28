@@ -55,7 +55,7 @@ font-style: initial;
 
 body{
     background-color:ghostwhite;
-    height: 1000px;
+    height:min-content
 }
 .choose{
     margin-top: 20px;

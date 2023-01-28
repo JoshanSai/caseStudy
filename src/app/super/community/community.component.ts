@@ -31,9 +31,10 @@ currDate=formatDate(new Date(),'yyyy-MM-dd','en_US');
 displayedColumns: String[]=['id','communityName','communityAddress','registeredDate','z','position6','position7'];
 @Output()
 notify:EventEmitter<any>=new EventEmitter<any>();
-  constructor(private http:HttpClient,private caseService1:CaseDataService, private router: Router,private route:ActivatedRoute) {
+   constructor(private http:HttpClient,private caseService1:CaseDataService, private router: Router,private route:ActivatedRoute) {
     
    }
+   
    communityForm=new FormGroup({
     id:new FormControl(),
     communityName:new FormControl('',Validators.required),
@@ -55,11 +56,13 @@ notify:EventEmitter<any>=new EventEmitter<any>();
    }
    
    closeCommunityFrom(){
+   document.getElementById('table')?.scrollIntoView({behavior:"smooth"})
     this.dialog=false
     this.myForm.reset()
     this.ngOnInit()
    }
    openCommunityForm(){
+      document.getElementById('divFirst')?.scrollIntoView({behavior:"smooth"})
     this.dialog=true
     this.addBtn=true
     this.updateBtn=false
@@ -76,7 +79,7 @@ notify:EventEmitter<any>=new EventEmitter<any>();
    }
    updateFormOpen(id:any,name:any,address:any,date:any){
     console.log(id,name,address,date);
-    
+    document.getElementById('divFirst')?.scrollIntoView({behavior:"smooth"})
     this.dialog=true
     this.addBtn=false
     this.updateBtn=true
@@ -93,30 +96,42 @@ notify:EventEmitter<any>=new EventEmitter<any>();
    }
    updateAfterClick(){
     let resp=this.http
-    .put("http://localhost:2030/case/updateCommunity/"+this.communityForm.get('id')?.value,this.communityForm.value)
+    .put(this.caseService1.url28+this.communityForm.get('id')?.value,this.communityForm.value)
    .subscribe((data=>{
+    console.log(data);
+    
     if(data!=null){
       alert("Succesfully updated")
+       this.dialog=false
+    this.myForm.reset()
+    this.ngOnInit()
     }
     else{
-      alert("unable to update")
+      alert("community already exists")
+      this.dialog=false
+    this.myForm.reset()
+    this.ngOnInit()
     }
    }))
   }
    addCommunity(){
     console.log(this.communityForm.value);
-    let resp=this.http.post("http://localhost:2030/case/putCommunities",this.communityForm.value)
+    let resp=this.http.post(this.caseService1.url29,this.communityForm.value)
     .subscribe((data=>{
       if(data==null){
         alert("community name already exits")
       }
       else{
         alert("Succesfully added")
+        this.dialog=false
+        this.myForm.reset()
+        this.ngOnInit()
       }
     }))
    }
   filterData($event:any){
-    this.dataSource.filter=$event.target.value
+    const filterValue = ($event.target as HTMLInputElement).value;
+    this.dataSource.filter=filterValue.trim().toLowerCase();
    }
   ngOnInit(): void {
     this.communityForm.setValue({
@@ -138,7 +153,7 @@ notify:EventEmitter<any>=new EventEmitter<any>();
         this.x = data;
         this.x.forEach((val:any) => {
           
-          let resp=this.http.get("http://localhost:2030/case/managersByComId/"+val.id).subscribe((data=>{
+          let resp=this.http.get(this.caseService1.url30+val.id).subscribe((data=>{
             let y:any=data
             this.c=0
             y.forEach((val:any) => {

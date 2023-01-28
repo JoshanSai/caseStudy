@@ -39,15 +39,15 @@ approved="Approved"
 dict:any={}
 dateClash:any // \contains an array of dates in which the booked dates are clashing
 varr="Show Booking Details"
-  dynamicCommunityName: any;
-  j: any;
-  x5:any; // used in mat autocomplete for filtering data
-  allCommunitiesOfOneManager: any;
-  temp: any;
-  dict2: any={};
-  communityName:any
-  topNavigate=false
-  currDate=formatDate(new Date(),'yyyy-MM-dd','en_US');
+dynamicCommunityName: any;
+j: any;
+x5:any; // used in mat autocomplete for filtering data
+allCommunitiesOfOneManager: any;
+temp: any;
+dict2: any={};
+communityName:any
+topNavigate=false
+currDate=formatDate(new Date(),'yyyy-MM-dd','en_US');
 @ViewChild(FormGroupDirective) myForm:any;
 dataSource!:MatTableDataSource<any>
 @ViewChild(MatSort) matSort!: MatSort;
@@ -184,7 +184,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
   confirmBooking(){
     console.log(this.BookingForm.get('roomName')!.value);
     
-    let resp=this.http.post("http://localhost:2022/case/putBooking1/"+this.BookingForm.get('roomName')!.value+'/'+this.approved,this.BookingForm.value).
+    let resp=this.http.post(this.servGR.url27+this.BookingForm.get('roomName')!.value+'/'+this.approved,this.BookingForm.value).
     subscribe((data=>{
       this.dateClash=data
       if(this.dateClash==null){
@@ -198,7 +198,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
           toDate: null,
           approvedByManager: "pending",
           comments: null,
-          createdBy: this.servGR.get_TenantName1(),
+          createdBy: this.servGR.get_TenantEmail(),
           createdDate: null,
           updatedBy: null,
           updatedDate: null
@@ -206,6 +206,9 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
         this.dialog=false
         this.myForm.resetForm()
         this.ngOnInit()
+      }
+      else if(this.dateClash[1]==null){
+        alert("Duplicate request")
       }
       else{
         alert("room is already booked for dates"+ " "+this.dateClash)
@@ -233,12 +236,20 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
     this.servGR.UpdateBookingStatusForGuestRooms(x,y).subscribe((data=>{
       console.log(data);
       let x:any=data
-      alert("Succesfully Updated")
+      if(data==null){
+        alert("Succesfully "+y)
       this.ngOnInit()
+      }
+      else{
+        alert("room is already booked for dates"+ " "+x)
+      }
+      
     }))
     
   }
+  
   BookRooms(){
+    document.getElementById('form')?.scrollIntoView({behavior:"smooth"})
      this.dialog=true 
      console.log(this.BookingForm.value);
      this.BookingForm.setValue({
@@ -250,7 +261,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
       toDate: this.currDate,
       approvedByManager: "pending",
       comments: null,
-      createdBy: this.servGR.get_TenantName1(),
+      createdBy: this.servGR.get_TenantEmail(),
       createdDate: null,
       updatedBy: null,
       updatedDate: null
@@ -258,6 +269,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
      
   }
   closeDialog(){
+    document.getElementById('head')?.scrollIntoView({behavior:"smooth"})
     this.myForm.resetForm()
     this.dialog=false
   }
@@ -283,17 +295,20 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
     if(this.tenantRole=="tenant"){
       this.servGR.GetFlatsByCommunityId(this.tenantCommunityId).subscribe((data=>{
         if(data!=null){
-          this.servGR.GetBookingsByFlatIdAndType(this.tenantFlatId,this.type,this.servGR.get_TenantName1()).subscribe((data=>{
+          this.servGR.GetBookingsByFlatIdAndType(this.tenantFlatId,this.type,this.servGR.get_TenantEmail()).subscribe((data=>{
             // console.log(data);
             this.y=data
           }))
         }
       }))
+      
   }
   else{
     this.servGR.GetAllBookingDetailsByTypeAndCommunityId(this.type,this.tenantCommunityId).subscribe((data=>{
       // console.log(this.type);
       this.y=data
+      
+      
     //  console.log(this.y);
     //   this.y2=[]
     //   this.y.forEach((val:any) => {
@@ -330,7 +345,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
     toDate: this.currDate,
     approvedByManager: "pending",
     comments: null,
-    createdBy: this.servGR.get_TenantName1(),
+    createdBy: this.servGR.get_TenantEmail(),
     createdDate: null,
     updatedBy: null,
     updatedDate: null

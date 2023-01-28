@@ -87,18 +87,6 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
     else{ // if he is not a community manager
       this.tenantCommunityId=JSON.parse(this.servGR.get_CommunitiesOfManagers()!)[0]
     }
-
-    // let resp=this.http.get("http://localhost:2022/case/tenantsByComId/"+this.tenantCommunityId+'/'+this.servGR.get_TenantName1()).
-    // subscribe((data=>{
-    // //  console.log(data);
-    // //  console.log(this.tenantCommunityId);
-    // //  console.log(this.servGR.get_TenantName1());
-     
-     
-    //   this.x1=data
-    //   this.tenantFlatId=this.x1[0].flatId
-    // }))
-
     this.tenantRole=this.servGR.get_tenantRole()!
     this.servGR.GetGuestRoomsByCommunityIdF(this.tenantCommunityId).subscribe(((data:any)=>{
      //console.log(data);
@@ -113,6 +101,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
     } ))
   }
   bookRooms(){
+  document.getElementById('form')?.scrollIntoView({behavior:'smooth'})
     if(this.dialog==false){
     this.dialog=true
     }
@@ -124,7 +113,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
       toDate: this.currDate,
       approvedByManager: "pending",
       comments: null,
-      createdBy: this.tenantName,
+      createdBy: this.servGR.get_TenantEmail(),
       createdDate: null,
       updatedBy: null,
       updatedDate: null
@@ -183,7 +172,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
   confirmBooking(){
     console.log(this.BookingForm.get('roomName')!.value);
     
-    let resp=this.http.post("http://localhost:2022/case/putBooking1/"+this.BookingForm.get('roomName')!.value+'/'+this.approved,this.BookingForm.value).
+    let resp=this.http.post(this.servGR.url27+this.BookingForm.get('roomName')!.value+'/'+this.approved,this.BookingForm.value).
     subscribe((data=>{
       this.dateClash=data
       if(this.dateClash==null){
@@ -196,7 +185,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
           toDate: null,
           approvedByManager: "pending",
           comments: null,
-          createdBy: this.tenantName,
+          createdBy: this.servGR.get_TenantEmail(),
           createdDate: null,
           updatedBy: null,
           updatedDate: null
@@ -204,6 +193,9 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
         this.myForm.resetForm()
         this.dialog=false
         this.ngOnInit()
+      }
+      else if(this.dateClash[1]==null){
+        alert("Duplicate request")
       }
       else{
         alert("room is already booked for dates"+ " "+this.dateClash)
@@ -245,6 +237,7 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
       }
   }
   closeDialog(){
+    document.getElementById('head')?.scrollIntoView({behavior:'smooth'})
     if(this.dialog==true){
       this.dialog=false
     }
@@ -263,20 +256,6 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
       return null;
     }
   }
-  // changeCommunity(x:any,y:any){
-  //   this.servGR.set_ComIdFromManager(parseInt(x))
-  //   this.servGR.set_CommunityName(y)
-  //   this.dynamicCommunityName=y
-  //   console.log("josh");
-    
-  //   let resp=this.http.get("http://localhost:2022/case/tenantsByComId/"+parseInt(x)+'/'+this.servGR.get_TenantName1()).
-  //   subscribe((data=>{
-  //     console.log("dataaa",data);
-  //     this.j=data
-  //     this.servGR.set_TenantFlatId(this.j[0].flatId) //when tenant details are fetched by name and com-id then original flat id is obtained
-  //     location.reload()
-  //   }))
-  //  }
    filterData($event:any){
     this.dataSource.filter=$event.target.value
    }
@@ -303,34 +282,14 @@ bookingColumns: String[]=['id','roomName','fromDate','toDate','type','createdBy'
     if(this.tenantRole=="tenant"){
       console.log("1235");
       
-      this.servGR.GetBookingsByFlatIdAndTypeF(this.tenantFlatId,this.type,this.servGR.get_TenantName1()).subscribe((data=>{
+      this.servGR.GetBookingsByFlatIdAndTypeF(this.tenantFlatId,this.type,this.servGR.get_TenantEmail()).subscribe((data=>{
         this.y=data
       }))
     }
     else{
       this.servGR.GetAllBookingDetailsByTypeAndCommunityId(this.type,this.tenantCommunityId).subscribe((data=>{
         this.y=data
-      //  console.log("--",this.y);
-      //   this.y2=[]
-      //   this.y.forEach((val:any) => {
-      //     this.servGR.GetFlatsById(val.flatId).subscribe((data=>{
-      //       this.y1=data
-      //       if(parseInt(this.servGR.get_ComIdFromManager()!)!=0){
-      //         if(this.y1[0].communityId==parseInt(this.servGR.get_ComIdFromManager()!)){
-      //           this.y2.push(val)
-      //         }
-      //       }
-      //       else{
-      //         if(this.y1[0].communityId==JSON.parse(this.servGR.get_CommunitiesOfManagers()!)[0]){
-      //           this.y2.push(val)
-      //         }
-      //       }
-            
-      //     }))
-      //   });
-      //   this.y=this.y2
-      //   console.log(">>>>>", this.y);
-        
+     
        }))
     }
     this.BookingForm.get('roomName')?.valueChanges.subscribe((res)=>{

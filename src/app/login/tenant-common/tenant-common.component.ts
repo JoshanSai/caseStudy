@@ -1,6 +1,7 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CaseDataService } from 'src/app/case-data.service';
 
 @Component({
@@ -16,21 +17,51 @@ export class TenantCommonComponent implements OnInit {
   dict:any={}
   comName:any
   dynamicCommunityName:any
-  j:any
-  buttonColor1="aqua"
-  buttonColor2="white"
-  buttonColor3="white"
-  buttonColor4="white"
+   j:any
   userName:any
-  constructor(private serv3:CaseDataService,private router:Router,private http:HttpClient) { }
+  userEmail:any
+  x:any
+  date:any
+  constructor(private serv3:CaseDataService,private router:Router,private http:HttpClient,private route:ActivatedRoute) {
+ 
+   }
   logout(){
     this.serv3.set_LoginVariable("")
     this.router.navigate([''])
   }
   ngOnInit(): void {
+    
+    this.userEmail=this.serv3.get_TenantEmail()
     this.userName=this.serv3.get_TenantName1()
     this.comName=this.serv3.get_CommunityName()
     console.log("harsh",this.comName);
+    // below code is to find the tenant role when change community is pressed
+    let res=this.http.get(this.serv3.URLgetTenantByName+this.userName).subscribe((data=>{
+      this.x=data
+     this.x.forEach((val:any) => {
+        if(val.community.communityName==this.comName){
+          if(val.adminStartDate!=null && val.adminEndDate==null){ 
+            this.serv3.set_tenantRole("communityManager")
+          }
+          else if(val.adminStartDate!=null && val.adminEndDate!=null){
+            this.date = formatDate(new Date(),'yyyy-MM-dd','en_US');
+            let date2 = formatDate(val.adminEndDate,'yyyy-MM-dd','en_US');
+            if(this.date<date2){
+              this.serv3.tenantRole="communityManager"
+              this.serv3.set_tenantRole("communityManager")
+             }else{
+              this.serv3.tenantRole="tenant"
+              this.serv3.set_tenantRole("tenant")
+             }
+          }
+          else{
+            this.serv3.tenantRole="tenant"
+            this.serv3.set_tenantRole("tenant")
+          }
+          
+        }
+      });
+    }))
     if(this.serv3.get_tenantRole()=="communityManager"){ //checks if the logged in tenant is a community manager or not
       if(parseInt(this.serv3.get_ComIdFromManager()!)==0){ // if CM is not from different communities
         this.communityId=JSON.parse(this.serv3.get_CommunitiesOfManagers()!)[0];
@@ -73,7 +104,7 @@ export class TenantCommonComponent implements OnInit {
     this.dynamicCommunityName=y
     console.log("josh");
     
-    let resp=this.http.get("http://localhost:2030/case/tenantsByComId/"+parseInt(x)+'/'+this.serv3.get_TenantName1()).
+    let resp=this.http.get(this.serv3.url23+parseInt(x)+'/'+this.serv3.get_TenantName1()).
     subscribe((data=>{
       console.log("dataaa",data);
       this.j=data
@@ -81,30 +112,30 @@ export class TenantCommonComponent implements OnInit {
       window.location.reload()
     }))
    }
-   navBarBtn(x:any){
-    if(x==1){
-      this.buttonColor1="aqua"
-      this.buttonColor2="white"
-      this.buttonColor3="white"
-      this.buttonColor4="white"
-    }
-    else if(x==2){
-      this.buttonColor1="white"
-      this.buttonColor2="aqua"
-      this.buttonColor3="white"
-      this.buttonColor4="white"
-    }
-    else if(x==3){
-      this.buttonColor1="white"
-      this.buttonColor2="white"
-      this.buttonColor3="aqua"
-      this.buttonColor4="white"
-    }
-    else if(x==4){
-      this.buttonColor1="white"
-      this.buttonColor2="white"
-      this.buttonColor3="white"
-      this.buttonColor4="aqua"
-    }
-   }
+  //  navBarBtn(x:any){
+  //   if(x==1){
+  //     this.buttonColor1="aqua"
+  //     this.buttonColor2="white"
+  //     this.buttonColor3="white"
+  //     this.buttonColor4="white"
+  //   }
+  //   else if(x==2){
+  //     this.buttonColor1="white"
+  //     this.buttonColor2="aqua"
+  //     this.buttonColor3="white"
+  //     this.buttonColor4="white"
+  //   }
+  //   else if(x==3){
+  //     this.buttonColor1="white"
+  //     this.buttonColor2="white"
+  //     this.buttonColor3="aqua"
+  //     this.buttonColor4="white"
+  //   }
+  //   else if(x==4){
+  //     this.buttonColor1="white"
+  //     this.buttonColor2="white"
+  //     this.buttonColor3="white"
+  //     this.buttonColor4="aqua"
+  //   }
+  //  }
 }

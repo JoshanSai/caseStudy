@@ -51,6 +51,7 @@ get CName() {
       this.x1=data
      this.x=this.x1.user 
       // this.x=data; 
+      this.serv.set_TenantEmail(this.x[0].email)
        this.serv.set_Token(this.x1.token)
       this.serv.set_TenantFlatId(this.x[0].flatId)
       //below code is responsible to determine the role of tenant upto line 67
