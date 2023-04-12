@@ -55,7 +55,17 @@ getId(id: any){
       this.route.navigate(['/tenantCommon'])
       // below code is to find the role of the tenant
       if(this.x1[0].adminStartDate!=null && this.x1[0].adminEndDate==null){ 
-        this.serv2.set_tenantRole("communityManager")
+        console.log("venky mama0")
+        this.date = formatDate(new Date(),'yyyy-MM-dd','en_US');
+        let startDate = formatDate(this.x1[0].adminStartDate,'yyyy-MM-dd','en_US');
+        if(startDate>this.date){
+          console.log("venky mama1")
+          this.serv2.set_tenantRole("tenant")
+        }
+        else{
+          console.log("venky mama2")
+          this.serv2.set_tenantRole("communityManager")
+        }
       }
       else if(this.x1[0].adminStartDate!=null && this.x1[0].adminEndDate!=null){
         this.date = formatDate(new Date(),'yyyy-MM-dd','en_US');

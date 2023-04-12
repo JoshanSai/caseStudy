@@ -1,18 +1,19 @@
 .body{
     text-align: left;
-    background: url('file:\\\C:\Users\JoshanDasi\Downloads\cm1new.jpg') no-repeat center center fixed;
-    background-size:cover;
-    
-     background-color: rgb(31, 30, 30);
+    /* background: url('file:\\\C:\Users\JoshanDasi\Downloads\background.png') no-repeat;  */
+    /* no-repeat center center fixed; */
+    /* background-size:cover; */
+     background-color:white;
 }
 .heading{
 line-height: 140px;
 padding-left: 20px;
 padding-bottom: 8px;
-color: rgb(10, 9, 9);
-font-size: 200%;
+color:rgb(47, 47, 47);
+font-size: 400%;
 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-background-color:aliceblue;
+background-color:white;
+
 }
 .card{
     text-align: center;
@@ -20,26 +21,28 @@ background-color:aliceblue;
     width: 0%;
     height: 0%;
     padding-top: 1%;
-    margin-left: 36%;
-    margin-top: 8%;
-    border-radius: 50px;
+    margin-left: 3%;
+    margin-top: 1%;
+    border-radius: 5px;
     opacity: 0;
     animation-name: appear;
     animation-duration: 1s;
     animation-fill-mode: forwards;
+    
 }
 @keyframes appear{
     from{
         opacity: 0;
         width: 0%;
         height: 0%;
-        background-color: deepskyblue;
+        background-color: wheat;
     }
     to{
         width: 25%;
         opacity: 1;
         height: 5%;
-        background-color: aliceblue;
+        background-color: rgb(47, 47, 47);
+        backdrop-filter: blur(5px);
     }
 }
 .btn{
@@ -49,4 +52,5 @@ background-color:aliceblue;
     animation-name: appear;
     animation-duration: 1s;
     animation-fill-mode: forwards; 
+    color: white;
 }

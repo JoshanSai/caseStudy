@@ -41,12 +41,17 @@ export class TenantCommonComponent implements OnInit {
      this.x.forEach((val:any) => {
         if(val.community.communityName==this.comName){
           if(val.adminStartDate!=null && val.adminEndDate==null){ 
-            this.serv3.set_tenantRole("communityManager")
+            this.date = formatDate(new Date(),'yyyy-MM-dd','en_US');
+            let startDate = formatDate(val.adminStartDate,'yyyy-MM-dd','en_US');
+            if(startDate<=this.date){
+              this.serv3.set_tenantRole("communityManager");
+            }
           }
           else if(val.adminStartDate!=null && val.adminEndDate!=null){
             this.date = formatDate(new Date(),'yyyy-MM-dd','en_US');
             let date2 = formatDate(val.adminEndDate,'yyyy-MM-dd','en_US');
-            if(this.date<date2){
+            let date3 = formatDate(val.adminStartDate,'yyyy-MM-dd','en_US');
+            if(this.date<date2 && date3<=this.date){
               this.serv3.tenantRole="communityManager"
               this.serv3.set_tenantRole("communityManager")
              }else{
@@ -112,30 +117,4 @@ export class TenantCommonComponent implements OnInit {
       window.location.reload()
     }))
    }
-  //  navBarBtn(x:any){
-  //   if(x==1){
-  //     this.buttonColor1="aqua"
-  //     this.buttonColor2="white"
-  //     this.buttonColor3="white"
-  //     this.buttonColor4="white"
-  //   }
-  //   else if(x==2){
-  //     this.buttonColor1="white"
-  //     this.buttonColor2="aqua"
-  //     this.buttonColor3="white"
-  //     this.buttonColor4="white"
-  //   }
-  //   else if(x==3){
-  //     this.buttonColor1="white"
-  //     this.buttonColor2="white"
-  //     this.buttonColor3="aqua"
-  //     this.buttonColor4="white"
-  //   }
-  //   else if(x==4){
-  //     this.buttonColor1="white"
-  //     this.buttonColor2="white"
-  //     this.buttonColor3="white"
-  //     this.buttonColor4="aqua"
-  //   }
-  //  }
 }
